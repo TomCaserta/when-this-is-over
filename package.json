@@ -1,0 +1,21 @@
+{
+  "name": "when-this-is-over",
+  "version": "1.0.0",
+  "description": "In quarantine and keep thinking of ideas and things to do but cant? This can help!",
+  "scripts": {
+    "serve": "concurrently -p \"[{name}]\" --names client,server \"cd client && npm -s run serve\" \"cd server && npm -s run serve\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomCaserta/when-this-is-over.git"
+  },
+  "author": "Thomas Caserta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TomCaserta/when-this-is-over/issues"
+  },
+  "homepage": "https://github.com/TomCaserta/when-this-is-over#readme",
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  }
+}

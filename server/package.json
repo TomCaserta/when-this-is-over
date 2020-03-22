@@ -1,0 +1,11 @@
+{
+  "name": "server",
+  "private": true,
+  "version": "1.0.0",
+  "description": "This is the main folder for the server side of the project.",
+  "scripts": {
+    "serve": "echo 'server started'"
+  },
+  "author": "Thomas Caserta",
+  "license": "MIT"
+}

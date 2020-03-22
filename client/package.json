@@ -1,0 +1,11 @@
+{
+  "name": "client",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Vue app for the whenthisisover.io frontend.",
+  "scripts": {
+    "serve": "echo 'client started'"
+  },
+  "author": "Thomas Caserta",
+  "license": "MIT"
+}
