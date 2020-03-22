@@ -1,7 +1,6 @@
 <template>
   <div class="page">
     <div class="content">
-        <Background />
         <nuxt />
     </div>
   </div>
@@ -11,14 +10,8 @@
 import { Component } from 'vue-property-decorator';
 import Vue from 'vue';
 
-import Background from '@/components/background.vue';
-
-@Component({
-    components: {
-        Background,
-    }
-})
-export default class DefaultLayout extends Vue {
+@Component
+export default class DashboardLayout extends Vue {
 
 }
 </script>
