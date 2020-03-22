@@ -1,0 +1,39 @@
+@mixin button($color) {
+    background: $color;
+
+    &:hover {
+        background: darken($color, 20%);
+        cursor: pointer;
+    }
+}
+
+.button {
+    @include paragraph();
+
+    padding: $space;
+    border-radius: $border-radius;
+    display: inline-block;
+    text-align: center;
+    border: 0px;
+    color: #fff;
+
+    &--primary {
+        @include button($primary);
+    }
+
+    &--secondary {
+        @include button($secondary);
+    }
+
+    &--error {
+        @include button($error);
+    }
+
+    &--alert {
+        @include button($alert);
+    }
+
+    &--success {
+        @include button($success);
+    }
+}

@@ -1,0 +1,66 @@
+// Auto exported from figma.
+@mixin style_guide_small_text($text-align:""){
+	@if $text-align != "" {
+	  text-align: $text-align;
+	}
+    font-family: Rubik, sans-serif;
+	font-weight: 400;
+	line-height: 10.546875px;
+	font-size: 9px;
+	letter-spacing: 0px;
+}
+
+@mixin heading_one($text-align:""){
+	@if $text-align != "" {
+	  text-align: $text-align;
+	}
+    font-family: Rubik, sans-serif;
+	font-weight: 700;
+	line-height: 44px;
+	font-size: 42px;
+	letter-spacing: 0px;
+}
+
+@mixin heading_two($text-align:""){
+	@if $text-align != "" {
+	  text-align: $text-align;
+	}
+    font-family: Rubik, sans-serif;
+	font-weight: 700;
+	line-height: 36.328125px;
+	font-size: 31px;
+	letter-spacing: 0px;
+}
+
+@mixin heading_three($text-align:""){
+	@if $text-align != "" {
+	  text-align: $text-align;
+	}
+    font-family: Rubik, sans-serif;
+	font-weight: 700;
+	line-height: 28.125px;
+	font-size: 24px;
+	letter-spacing: 0px;
+}
+
+@mixin heading_four($text-align:""){
+	@if $text-align != "" {
+	  text-align: $text-align;
+	}
+    font-family: Rubik, sans-serif;
+	font-weight: 700;
+	line-height: 17.578125px;
+	font-size: 15px;
+	letter-spacing: 0px;
+}
+
+@mixin paragraph($text-align:""){
+	@if $text-align != "" {
+	  text-align: $text-align;
+	}
+    font-family: 'Karla', sans-serif;
+	font-weight: 400;
+	line-height: 18px;
+	font-size: 14px;
+	letter-spacing: 0px;
+}

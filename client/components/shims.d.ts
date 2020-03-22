@@ -3,3 +3,9 @@ declare module "*.vue" {
     export default Vue;
 }
 
+declare namespace NodeJS {
+    interface Process {
+        client: boolean
+        server: boolean
+    }
+}

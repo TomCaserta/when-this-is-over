@@ -1,0 +1,17 @@
+input {
+    background: #FFFFFF;
+    border: 1px solid $light_gray;
+    border-radius: $border-radius;
+    padding: $space;
+    color: $body-text;
+    outline: none;
+
+    &::placeholder {
+        color: $light_text;
+    }
+
+    &:focus {
+        border: 2px solid $primary;
+        padding: $space - 1px;
+    }
+}

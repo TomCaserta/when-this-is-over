@@ -1,0 +1,32 @@
+$space: 16px;
+$space--small: $space / 2;
+$space--large: $space * 2;
+$space--x-large: $space--large * 2;
+
+
+$body-text: rgb(84, 84, 84);
+$body-text--contrast: #fff;
+
+$heading-text: #000;
+$heading-text--contrast: #fff;
+
+$field-background: #fff;
+
+$border-radius: 5px;
+
+// Auto exported from figma...
+$light_gray: rgba(224,224,224,1);
+$light_text: rgba(160,160,160,1);
+
+$primary: rgba(41,51,92,1);
+$secondary: rgba(202,5,77,1);
+$tertiary: rgba(59,28,50,1);
+
+$success: rgba(91,214,104,1);
+$alert: rgba(243,167,18,1);
+$error: rgba(228,87,46,1);
+
+$primary_text: rgba(72,89,162,1);
+$alert_text: rgba(199,135,10,1);
+$success_text: rgba(54,149,61,1);
+$error_text: rgba(153,49,19,1);

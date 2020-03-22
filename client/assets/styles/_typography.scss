@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Karla|Rubik&display=swap');
+
+h1, h2, h3, h4, h5 {
+    font-family: Rubik, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+}
+
+h1 {
+    @include heading_one();
+}
+
+h2 {
+    @include heading_two();
+}
+
+h3 {
+    @include heading_three();
+}
+
+h4 {
+    @include heading_three();
+}
+
+p {
+    @include paragraph();
+}
+
