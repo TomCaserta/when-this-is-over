@@ -10,7 +10,7 @@ This is a CODEVID-19 project: https://codevid19.com/ check it out and build some
 
 ## Development
 
-Install node + npm and run the project withL:
+Install node + npm and run the project with:
 
 ```bash
 npm i
