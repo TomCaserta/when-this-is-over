@@ -35,11 +35,8 @@ export default class IndexPage extends Vue {
 
 <style lang="scss" scoped>
 .intro {
-    position: relative;
-    left: 50%;
-    width: calc((((100vw - (#{$space} * 12)) / 12) * 8));
+    @include mq-center-col(11, 10, 8);
     text-align: center;
-    transform: translateX(-50%);
 
     &__title {
         margin-top: $space--x-large;
@@ -53,13 +50,14 @@ export default class IndexPage extends Vue {
 
     &__task {
         margin-top: $space--x-large;
-        width: calc((((100vw - (#{$space} * 12)) / 12) * 6));
+        @include mq-center-col(11, 8, 6);
+        display: block;
     }
 
     &__button {
+        display: block;
         margin-top: $space--large;
-        // TODO Make this a mixin or use grid/flex?
-        width: calc((((100vw - (#{$space} * 12)) / 12) * 2));
+        @include mq-center-col(8, 4, 2);
     }
 }
 </style>
