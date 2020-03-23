@@ -12,12 +12,18 @@ export interface IApiResponse {
     /**
      * Actual response.
      */
-    res: ILoginSendResponse | ILoginResponse | IGetTodosResponse | IAddTodoResponse | null;
+    res: ISignUpResponse |
+         ISignUpVerifyResponse |
+         ILoginResponse |
+         IAuthorizeResponse |
+         IGetTodosResponse |
+         IAddTodoResponse |
+         null;
 }
 
 // ----------------------------------------------------------------------------
 
-export interface ILoginSendParams {
+export interface ILoginParams {
     /**
      * Email to send a login link to.
      */
@@ -25,7 +31,7 @@ export interface ILoginSendParams {
 }
 
 // Null response, don't hint that an email does/doesn't exist for security purposes
-export type ILoginSendResponse = null;
+export type ILoginResponse = null;
 
 // ----------------------------------------------------------------------------
 
@@ -47,7 +53,7 @@ export interface ISignUpParams {
      * their first todo item. Store this data so
      * it can be picked up later.
      */
-    initialTodo: IAddTodoParams;
+    initialTodo?: IAddTodoParams;
 }
 
 // Null response, don't hint that an email does/doesn't is already in use for security purposes.
@@ -64,7 +70,7 @@ export interface ISignUpVerifyParams {
     token: string;
 }
 
-export interface ISignUpVerifyResponse extends ILoginResponse {
+export interface ISignUpVerifyResponse extends IAuthorizeResponse {
     /**
      * The initial TODO sent in the sign up request.
      * It can be deleted from the backend at this point.
@@ -77,7 +83,7 @@ export interface ISignUpVerifyResponse extends ILoginResponse {
 
 // ----------------------------------------------------------------------------
 
-export interface ILoginParams {
+export interface IAuthorizeParams {
     /**
      * Token the user received in their email
      * to log them in.
@@ -85,7 +91,7 @@ export interface ILoginParams {
     token: string;
 }
 
-export interface ILoginResponse {
+export interface IAuthorizeResponse {
     /**
      * ISO Country code that the user signed
      * up with.
