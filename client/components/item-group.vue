@@ -1,6 +1,6 @@
 <template>
     <div class="group">
-        <h3>{{title}}</h3>
+        <h3 class="group__title">{{title}}</h3>
         <div class="group__items">
             <Item
                 v-for="item of items"
@@ -13,6 +13,14 @@
         </div>
     </div>
 </template>
+
+<style lang="scss">
+.group {
+    &__title {
+        color: $body-text;
+    }
+}
+</style>
 
 <script lang="ts">
 import Vue from 'vue';

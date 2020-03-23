@@ -37,9 +37,20 @@
     }
 }
 
+
 .lists {
     width: 100%;
     padding: $space--large;
+    display: flex;
+
+    &__list {
+        @include mq-col(12, 4, 4);
+        margin-right: $space;
+
+        &:last-child {
+            margin-right: 0px;
+        }
+    }
 }
 </style>
 
