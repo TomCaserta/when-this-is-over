@@ -7,6 +7,7 @@
            </Button>
 
            <Country class="nav__country" code="ES" />
+           <Progress class="nav__progress" percent="80" />
        </div>
 
        <div class="lists">
@@ -27,6 +28,7 @@
     min-height: 75px;
     padding: 0px $space--large;
     align-content: center;
+    justify-content: center;
 
     @include grid(12);
 
@@ -48,8 +50,13 @@
     }
 
     &__country {
+        justify-self: end;
+        grid-column: -5;
+    }
+
+    &__progress {
+        grid-column: -4 / -1;
         align-self: center;
-        grid-column: -1;
     }
 }
 
@@ -77,6 +84,7 @@ import { Component } from 'vue-property-decorator';
 import Button from '@/components/button.vue';
 import ItemGroup from '@/components/item-group.vue';
 import Country from '@/components/country.vue';
+import Progress from '@/components/progress.vue';
 import { ITodoItem } from '../store/item';
 
 export interface ITodoItemGroup {
@@ -91,6 +99,7 @@ export interface ITodoItemGroup {
         Button,
         ItemGroup,
         Country,
+        Progress,
     }
 })
 export default class DashboardPage extends Vue {
