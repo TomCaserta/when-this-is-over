@@ -29,15 +29,15 @@
     overflow: hidden;
 
     &__circle {
-        width: var(--size);
-        height: var(--size);
-        border-radius: var(--size);
         backface-visibility: hidden;
         position: absolute;
         animation: rotate;
         animation-timing-function: linear;
         animation-iteration-count: infinite;
 
+        width: var(--size);
+        height: var(--size);
+        border-radius: var(--size);
         animation-duration: var(--duration);
         animation-delay: var(--delay);
         transform-origin: var(--origin-x) var(--origin-y);
@@ -45,7 +45,7 @@
         left: var(--left);
 
         background: rgba(196, 196, 196, 0.1);
-        backdrop-filter: blur(2px);
+        backdrop-filter: blur(4px);
     }
 }
 
@@ -82,11 +82,11 @@ export default class Background extends Vue {
             this.circles.push({
                 id: x,
                 size: this.getRandom(5, 30),
-                top: this.getRandom(0, 150) - 50,
-                left: this.getRandom(0, 150) - 50,
-                delay: this.getRandom(0, 30),
-                originX: this.getRandom(0, 200) - 100,
-                originY: this.getRandom(0, 200) - 100,
+                top: this.getRandom(0, 100),
+                left: this.getRandom(0, 100),
+                delay: this.getRandom(0, 300),
+                originX: this.getRandom(0, 20),
+                originY: this.getRandom(10, 40),
                 duration: this.getRandom(300, 400),
             })
         }
