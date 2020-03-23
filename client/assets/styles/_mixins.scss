@@ -1,21 +1,20 @@
-// Auto exported from figma.
-@mixin col($cols, $total-cols: 12) {
-    width: calc((((100vw - (#{$space} * #{$total-cols})) / 12) * #{$cols} + (#{$space} * #{$cols})));
+// TODO: replace this with a real css grid (or equiv grid system)
+@mixin col($cols, $total-cols: 12, $padding: 0px) {
+    width: calc(((100vw - (#{$space} * #{$total-cols})) / 12) * #{$cols} + (#{$space} * #{$cols}) - #{$padding * 2});
 }
 
 
-@mixin mq-col($mobile, $tablet, $desktop) {
-    @include col($mobile);
+@mixin mq-col($mobile, $tablet, $desktop, $padding: 0px) {
+    @include col($mobile, 12, $padding);
 
-    @media (min-width: 768px) {
-        @include col($tablet);
+    @include tablet() {
+        @include col($tablet, 12, $padding);
     }
 
-    @media (min-width: 1024px) {
-        @include col($desktop);
+    @include desktop() {
+        @include col($desktop, 12, $padding);
     }
 }
-
 
 @mixin mq-center-col($mobile, $tablet, $desktop) {
     position: relative;
@@ -24,15 +23,40 @@
 
     @include col($mobile);
 
-    @media (min-width: 768px) {
+    @include tablet() {
         @include col($tablet);
     }
 
-    @media (min-width: 1024px) {
+    @include desktop() {
         @include col($desktop);
     }
 }
 
+@mixin phablet() {
+    @media (min-width: 500px) {
+        @content;
+    }
+}
+
+@mixin tablet() {
+    @media (min-width: 769px) {
+        @content;
+    }
+}
+
+@mixin desktop() {
+    @media (min-width: 1025px) {
+        @content;
+    }
+}
+
+@mixin large() {
+    @media (min-width: 1400px) {
+        @content;
+    }
+}
+
+// Auto exported from figma:
 @mixin style_guide_small_text($text-align:""){
 	@if $text-align != "" {
 	  text-align: $text-align;

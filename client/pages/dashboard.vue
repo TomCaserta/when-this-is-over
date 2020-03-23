@@ -24,16 +24,20 @@
 <style lang="scss" scoped>
 .nav {
     background: #fff;
-    height: 50px;
+    min-height: 50px;
     line-height: 50px;
     padding: 0px $space--large;
 
     &__task {
-        @include mq-col(11, 3, 4);
+        @include mq-col(12, 3, 4, $space--large);
     }
 
     &__submit {
-        @include mq-col(1, 1, 1);
+        width: 100%;
+
+        @include tablet() {
+            width: auto;
+        }
     }
 }
 
@@ -41,14 +45,21 @@
 .lists {
     width: 100%;
     padding: $space--large;
-    display: flex;
+
+    @include tablet() {
+        display: flex;
+    }
 
     &__list {
-        @include mq-col(12, 4, 4);
-        margin-right: $space;
+        @include mq-col(12, 4, 4, $space--large);
 
-        &:last-child {
-            margin-right: 0px;
+
+        @include tablet() {
+            margin-right: $space;
+
+            &:last-child {
+                margin-right: 0px;
+            }
         }
     }
 }

@@ -3,7 +3,7 @@
         class="button"
         :class="{
             [`button--${variant}`]: true,
-            'button--inline': true,
+            'button--inline': inline,
         }"
     >
         <slot />
