@@ -50,13 +50,23 @@
     }
 
     &__country {
-        justify-self: end;
-        grid-column: -5;
+        display: none;
+
+        @include tablet() {
+            display: block;
+            justify-self: end;
+            grid-column: -5;
+        }
     }
 
     &__progress {
-        grid-column: -4 / -1;
-        align-self: center;
+        display: none;
+
+        @include tablet() {
+            display: block;
+            grid-column: -4 / -1;
+            align-self: center;
+        }
     }
 }
 
