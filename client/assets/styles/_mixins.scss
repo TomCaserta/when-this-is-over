@@ -1,6 +1,19 @@
 // Auto exported from figma.
-@mixin center-col($cols, $total-cols: 12) {
+@mixin col($cols, $total-cols: 12) {
     width: calc((((100vw - (#{$space} * #{$total-cols})) / 12) * #{$cols} + (#{$space} * #{$cols})));
+}
+
+
+@mixin mq-col($mobile, $tablet, $desktop) {
+    @include col($mobile);
+
+    @media (min-width: 768px) {
+        @include col($tablet);
+    }
+
+    @media (min-width: 1024px) {
+        @include col($desktop);
+    }
 }
 
 
@@ -9,14 +22,14 @@
     left: 50%;
     transform: translateX(-50%);
 
-    @include center-col($mobile);
+    @include col($mobile);
 
     @media (min-width: 768px) {
-        @include center-col($tablet);
+        @include col($tablet);
     }
 
     @media (min-width: 1024px) {
-        @include center-col($desktop);
+        @include col($desktop);
     }
 }
 

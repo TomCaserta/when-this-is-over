@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "In quarantine and keep thinking of ideas and things to do but cant? This can help!",
   "scripts": {
-    "serve": "concurrently -p \"[{name}]\" --names client,server \"cd client && npm -s run dev\" \"cd server && npm -s run serve\""
+    "serve": "concurrently -p \"[{name}]\" --names client,server \"cd client && npm -s run dev\" \"cd server && npm -s run serve\"",
+    "postinstall": "cd client && npm i"
   },
   "repository": {
     "type": "git",

@@ -1,9 +1,9 @@
 <template>
   <div>
        <div class="nav">
-           <div class="left">
-               <input type="text" placeholder="Enter a city, restaurant, thing you want to do, anything..." />
-               <Button class="add" variant="success">
+           <div class="nav__add-item">
+               <input class="nav__task" placeholder="Enter a city, restaurant, thing you want to do, anything..." />
+               <Button class="nav__submit" variant="success" inline>
                    + ADD ITEM
                </Button>
            </div>
@@ -12,6 +12,7 @@
        <div class="lists">
            <ItemGroup
                v-for="group of groups"
+               class="lists__list"
                :title="group.title"
                :key="group.id"
                :items="group.items"
@@ -19,6 +20,29 @@
        </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.nav {
+    background: #fff;
+    height: 50px;
+    line-height: 50px;
+    padding: 0px $space--large;
+
+    &__task {
+        @include mq-col(11, 3, 4);
+    }
+
+    &__submit {
+        @include mq-col(1, 1, 1);
+    }
+}
+
+.lists {
+    width: 100%;
+    padding: $space--large;
+}
+</style>
+
 
 <script lang="ts">
 import Vue from 'vue';
@@ -45,7 +69,7 @@ export default class DashboardPage extends Vue {
     groups: ITodoItemGroup[] = [
         {
             id: '1',
-            title: 'Places to go',
+            title: 'Places to visit',
             items: [
                 {
                     id: 1,
@@ -57,14 +81,40 @@ export default class DashboardPage extends Vue {
                     title: 'San francisco (USA)',
                     description: 'Some lovely bridge this is, could be cool right?',
                 }
-            ]
+            ],
         },
+        {
+            id: '2',
+            title: 'Things to do',
+            items: [
+                {
+                    id: 1,
+                    title: 'Go for a walk',
+                    description: 'Maybe this second line looks cool but would never be typed in.',
+                },
+                {
+                    id: 2,
+                    title: 'Purchase a new bike',
+                    description: 'Totally should finally get that new XCR-1000 Electric bike!',
+                },
+                {
+                    id: 3,
+                    title: 'Party on the streets!',
+                    description: 'Make sure we still keep our distance ;)',
+                }
+            ],
+        },
+        {
+            id: '3',
+            title: 'Restaurants to eat at',
+            items: [
+                {
+                    id: 1,
+                    title: 'Lima 26',
+                    description: 'Best peruvian restaurant in Marbella! (Okay theres only like 2)',
+                },
+            ],
+        }
     ];
 }
 </script>
-
-<style lang="scss" scoped>
-.nav {
-
-}
-</style>

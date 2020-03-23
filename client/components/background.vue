@@ -1,7 +1,7 @@
 <template>
     <div class="background">
-        <!-- Temporary until can make a nice animated BG -->
-        <svg width="1440" height="866" viewBox="0 0 1440 866" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- TODO: Temporary until can make a nice animated BG -->
+        <svg :width="width" :height="height" viewBox="0 0 1440 866" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 0C562.355 0 877.645 0 1440 0V845.656C1197.52 748.166 1045 1139.24 720 845.656C395 552.07 268.516 963.507 0 845.656V0Z" fill="url(#paint0_linear)"/>
             <g filter="url(#filter0_b)">
             <circle cx="622" cy="492" r="55" transform="rotate(90 622 492)" fill="#C4C4C4" fill-opacity="0.1"/>
@@ -563,6 +563,27 @@
     backdrop-filter: blur(2px);
 }
 </style>
+
+<script lang="ts">
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+
+
+@Component({
+    name: 'background',
+})
+export default class Background extends Vue {
+    width = 0;
+    height = 0;
+
+    mounted() {
+        if (process.client) {
+            this.width = window.innerWidth;
+            this.height = window.innerHeight;
+        }
+    }
+}
+</script>
 
 <!-- script lang="ts" >
 // import Vue from 'vue';

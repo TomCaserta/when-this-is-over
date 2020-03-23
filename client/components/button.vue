@@ -1,7 +1,10 @@
 <template>
     <button
         class="button"
-        :class="`button--${variant}`"
+        :class="{
+            [`button--${variant}`]: true,
+            'button--inline': true,
+        }"
     >
         <slot />
     </button>
@@ -20,5 +23,8 @@ export default class Button extends Vue {
         default: 'primary',
     })
     variant!: string;
+
+    @Prop(Boolean)
+    inline!: boolean;
 }
 </script>

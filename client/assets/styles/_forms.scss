@@ -1,8 +1,11 @@
 input {
+    @include paragraph();
+    line-height: 18px;
     background: #FFFFFF;
+    font-size: 12px;
     border: 1px solid $light_gray;
     border-radius: $border-radius;
-    padding: $space;
+    padding: $space--small $space;
     color: $body-text;
     outline: none;
 
@@ -12,6 +15,6 @@ input {
 
     &:focus {
         border: 2px solid $primary;
-        padding: $space - 1px;
+        padding: ($space--small - 1px) ($space - 1px);
     }
 }
