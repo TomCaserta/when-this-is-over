@@ -4,7 +4,7 @@
             v-if="imageUrl"
             class="item__image"
             :style="{
-                backgroundImage: `url(${imageUrl})`
+                '--bg': `url(${imageUrl})`
             }"
         >
         </div>
@@ -26,6 +26,21 @@
 
     &__details {
         padding: $space;
+    }
+
+    &__image {
+        border-radius: $border-radius $border-radius 0px 0px;
+        height: 160px;
+        width: 100%;
+
+        background:
+            linear-gradient(
+              rgba($primary, 0.3),
+              rgba($primary, 0.3)
+            ),
+            var(--bg);
+        background-size: cover;
+        background-position: 50% 50%;
     }
 
     &__description {

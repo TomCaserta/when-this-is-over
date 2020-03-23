@@ -94,11 +94,13 @@ export default class DashboardPage extends Vue {
                 {
                     id: 1,
                     title: 'London (UK)',
+                    image: '/imgs/london.jpg',
                     description: 'Go back home to lorum ipsum blah',
                 },
                 {
                     id: 2,
                     title: 'San francisco (USA)',
+                    image: '/imgs/sanfran.jpg',
                     description: 'Some lovely bridge this is, could be cool right?',
                 }
             ],
@@ -131,6 +133,7 @@ export default class DashboardPage extends Vue {
                 {
                     id: 1,
                     title: 'Lima 26',
+                    image: '/imgs/taquenos.jpg',
                     description: 'Best peruvian restaurant in Marbella! (Okay theres only like 2)',
                 },
             ],
