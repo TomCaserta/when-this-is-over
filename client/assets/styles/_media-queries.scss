@@ -1,0 +1,23 @@
+@mixin phablet() {
+    @media (min-width: 500px) {
+        @content;
+    }
+}
+
+@mixin tablet() {
+    @media (min-width: 769px) {
+        @content;
+    }
+}
+
+@mixin desktop() {
+    @media (min-width: 1025px) {
+        @content;
+    }
+}
+
+@mixin large() {
+    @media (min-width: 1400px) {
+        @content;
+    }
+}

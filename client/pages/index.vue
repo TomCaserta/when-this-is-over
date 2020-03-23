@@ -35,29 +35,61 @@ export default class IndexPage extends Vue {
 
 <style lang="scss" scoped>
 .intro {
-    @include mq-center-col(11, 10, 8);
+    @include grid(12);
     text-align: center;
 
     &__title {
         margin-top: $space--x-large;
         color: $heading-text--contrast;
+
+        grid-column: span 12;
+        grid-row: 1;
     }
 
     &__desc {
-        margin-top: $space--x-large;
         color: $body-text--contrast;
+
+        grid-column: span 12;
+        grid-row: 2;
+
+        @include tablet() {
+            grid-column: 3 / span 8;
+        }
+
+        @include desktop() {
+            grid-column: 4 / span 6;
+        }
     }
 
     &__task {
         margin-top: $space--x-large;
-        @include mq-center-col(11, 8, 6);
         display: block;
+
+        grid-column: span 12;
+        grid-row: 3;
+
+        @include tablet() {
+            grid-column: 3 / span 8;
+        }
+
+        @include desktop() {
+            grid-column: 4 / span 6;
+        }
     }
 
     &__button {
         display: block;
-        margin-top: $space--large;
-        @include mq-center-col(8, 4, 2);
+
+        grid-column: 3 / 8 span;
+        grid-row: 4;
+
+        @include tablet() {
+            grid-column: 5 / span 4;
+        }
+
+        @include desktop() {
+            grid-column: 6 / span 2;
+        }
     }
 }
 </style>

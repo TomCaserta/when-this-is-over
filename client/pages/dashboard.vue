@@ -1,12 +1,10 @@
 <template>
   <div>
        <div class="nav">
-           <div class="nav__add-item">
-               <input class="nav__task" placeholder="Enter a city, restaurant, thing you want to do, anything..." />
-               <Button class="nav__submit" variant="success" inline>
-                   + ADD ITEM
-               </Button>
-           </div>
+           <input class="nav__task" placeholder="Enter a city, restaurant, thing you want to do, anything..." />
+           <Button class="nav__submit" variant="success" inline>
+               + ADD ITEM
+           </Button>
        </div>
 
        <div class="lists">
@@ -24,19 +22,27 @@
 <style lang="scss" scoped>
 .nav {
     background: #fff;
-    min-height: 50px;
-    line-height: 50px;
-    padding: 0px $space--large;
+    min-height: 75px;
+    padding: $space $space--large;
+
+    @include grid(12);
 
     &__task {
-        @include mq-col(12, 3, 4, $space--large);
+        grid-column: span 12;
+        max-height: 42px;
+
+        @include tablet() {
+            grid-column: span 4;
+        }
     }
 
     &__submit {
         width: 100%;
+        max-height: 42px;
+        grid-column: span 12;
 
         @include tablet() {
-            width: auto;
+            grid-column: span 1;
         }
     }
 }
@@ -45,21 +51,13 @@
 .lists {
     width: 100%;
     padding: $space--large;
-
-    @include tablet() {
-        display: flex;
-    }
+    @include grid(12);
 
     &__list {
-        @include mq-col(12, 4, 4, $space--large);
-
+        grid-column: span 12;
 
         @include tablet() {
-            margin-right: $space;
-
-            &:last-child {
-                margin-right: 0px;
-            }
+            grid-column: span 4;
         }
     }
 }
