@@ -6,8 +6,8 @@
                + ADD ITEM
            </Button>
 
-           <Country class="nav__country" code="ES" />
-           <Progress class="nav__progress" percent="80" />
+           <Country class="nav__country" code="BR" />
+           <Countdown class="nav__countdown" email="tom@caserta.co.uk" endDate="1586563200000" totalDays="30" />
        </div>
 
        <div class="lists">
@@ -59,7 +59,7 @@
         }
     }
 
-    &__progress {
+    &__countdown {
         display: none;
 
         @include tablet() {
@@ -94,7 +94,7 @@ import { Component } from 'vue-property-decorator';
 import Button from '@/components/button.vue';
 import ItemGroup from '@/components/item-group.vue';
 import Country from '@/components/country.vue';
-import Progress from '@/components/progress.vue';
+import Countdown from '@/components/countdown.vue';
 import { ITodoItem } from '../store/item';
 
 export interface ITodoItemGroup {
@@ -109,7 +109,7 @@ export interface ITodoItemGroup {
         Button,
         ItemGroup,
         Country,
-        Progress,
+        Countdown,
     }
 })
 export default class DashboardPage extends Vue {
