@@ -1,11 +1,23 @@
 {
-  "name": "server",
-  "private": true,
+  "name": "when-this-is-over",
   "version": "1.0.0",
-  "description": "This is the main folder for the server side of the project.",
+  "description": "When this is over server side",
+  "main": "app.js",
+  "author": "Rodrigo Siqueira",
+  "license": "MIT",
   "scripts": {
-    "serve": "echo 'server started'"
+    "serve": "NODE_ENV=production node server.js"
   },
-  "author": "Thomas Caserta",
-  "license": "MIT"
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "config": "^3.3.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.5",
+    "morgan": "~1.9.1"
+  }
 }
