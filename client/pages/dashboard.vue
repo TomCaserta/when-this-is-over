@@ -5,6 +5,8 @@
            <Button class="nav__submit" variant="success" inline>
                + ADD ITEM
            </Button>
+
+           <Country class="nav__country" code="ES" />
        </div>
 
        <div class="lists">
@@ -23,13 +25,13 @@
 .nav {
     background: #fff;
     min-height: 75px;
-    padding: $space $space--large;
+    padding: 0px $space--large;
+    align-content: center;
 
     @include grid(12);
 
     &__task {
         grid-column: span 12;
-        max-height: 42px;
 
         @include tablet() {
             grid-column: span 4;
@@ -38,12 +40,16 @@
 
     &__submit {
         width: 100%;
-        max-height: 42px;
         grid-column: span 12;
 
         @include tablet() {
             grid-column: span 1;
         }
+    }
+
+    &__country {
+        align-self: center;
+        grid-column: -1;
     }
 }
 
@@ -70,6 +76,7 @@ import { Component } from 'vue-property-decorator';
 
 import Button from '@/components/button.vue';
 import ItemGroup from '@/components/item-group.vue';
+import Country from '@/components/country.vue';
 import { ITodoItem } from '../store/item';
 
 export interface ITodoItemGroup {
@@ -83,6 +90,7 @@ export interface ITodoItemGroup {
     components: {
         Button,
         ItemGroup,
+        Country,
     }
 })
 export default class DashboardPage extends Vue {
