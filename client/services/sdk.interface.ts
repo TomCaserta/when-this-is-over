@@ -125,7 +125,7 @@ export interface IAuthorizeResponse {
     };
 
     /**
-     * Session token to be sent as `AuthorizationToken` in
+     * Session token to be sent as `X-AuthorizationToken` in
      * the headers of all future requests.
      */
     sessionToken: string;
