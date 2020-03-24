@@ -18,6 +18,7 @@ export interface IApiResponse {
          IAuthorizeResponse |
          IGetTodosResponse |
          IAddTodoResponse |
+         ILogoutResponse |
          null;
 }
 
@@ -32,6 +33,12 @@ export interface ILoginParams {
 
 // Null response, don't hint that an email does/doesn't exist for security purposes
 export type ILoginResponse = null;
+
+// ----------------------------------------------------------------------------
+
+export interface ILogoutParams {}
+
+export type ILogoutResponse = null;
 
 // ----------------------------------------------------------------------------
 

@@ -9,7 +9,9 @@ import {
     IAuthorizeResponse,
     IGetTodosResponse,
     IGetTodosParams,
-    IAddTodoResponse
+    IAddTodoResponse,
+    ILogoutParams,
+    ILogoutResponse
 } from './sdk.interface';
 
 export class SdkService {
@@ -58,6 +60,15 @@ export class SdkService {
             {
                 email,
             }
+        );
+    }
+
+    logout() {
+        this.guardAuth();
+
+        return this.request<ILogoutResponse, ILogoutParams>(
+            'users/logout',
+            {}
         );
     }
 
