@@ -30,6 +30,6 @@ import { Component, Prop } from 'vue-property-decorator';
 @Component
 export default class Progress extends Vue {
     @Prop(Number)
-    percent: number;
+    percent!: number;
 }
 </script>
