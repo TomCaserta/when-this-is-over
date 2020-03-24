@@ -20,7 +20,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
-import countries from '@/assets/json/countries.json';
+import countries from '../assets/data/countries';
 
 @Component
 export default class Country extends Vue {

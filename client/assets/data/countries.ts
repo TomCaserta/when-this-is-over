@@ -1,4 +1,4 @@
-{
+export default {
     "AF": {
       "name": "Afghanistan",
       "alpha3": "AFG",
@@ -1475,4 +1475,4 @@
       "idealFlag": "zimbabwe.svg",
       "flag": "242-zimbabwe.svg"
     }
-  }
+};
