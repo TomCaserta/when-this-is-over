@@ -13,7 +13,7 @@ import {
 } from './sdk.interface';
 
 export class SdkService {
-    private sessionToken: string | null;
+    private sessionToken: string | null = null;
 
     constructor(
         private url: string,
