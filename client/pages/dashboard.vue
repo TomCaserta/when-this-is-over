@@ -7,7 +7,7 @@
            </Button>
 
            <Country class="nav__country" code="BR" />
-           <Countdown class="nav__countdown" email="tom@caserta.co.uk" endDate="1586563200000" totalDays="30" />
+           <Countdown class="nav__countdown" email="tom@caserta.co.uk" :endDate="1586563200000" :totalDays="30" />
        </div>
 
        <div class="lists">
