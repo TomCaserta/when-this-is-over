@@ -3,7 +3,7 @@
         <p class="countdown__info">
             {{daysLeft}} days until we send an email to <b>{{email}}</b>
         </p>
-        <Progress class="countdown__progress" :percent="percent" />
+        <ProgressBar class="countdown__progress" :percent="percent" />
     </div>
 </template>
 
@@ -27,11 +27,11 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
-import Progress from '@/components/progress.vue';
+import ProgressBar from '@/components/progress-bar.vue';
 
 @Component({
     components: {
-        Progress,
+        ProgressBar,
     },
 })
 export default class Countdown extends Vue {
