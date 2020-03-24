@@ -27,13 +27,19 @@ export class SdkService {
         );
     }
 
-    signUpVerify(token: string) {
-        return this.request<ISignUpVerifyResponse, ISignUpVerifyParams>(
+    async signUpVerify(token: string) {
+        const resp = await this.request<ISignUpVerifyResponse, ISignUpVerifyParams>(
             'users/sign-up-verify',
             {
                 token,
             }
         );
+
+        if (resp.initialTodo) {
+            await this.addTodo(resp.initialTodo);
+        }
+
+        return resp;
     }
 
     login(email: string) {
