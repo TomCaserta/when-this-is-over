@@ -27,7 +27,7 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
 import Item from "@/components/item.vue";
-import { ITodoItem } from '../store/item';
+import { ITodoItem, ITodoItemGroup } from '@/services/sdk.interface';
 
 @Component({
     components: {
@@ -39,6 +39,6 @@ export default class ItemGroup extends Vue {
     title!: string;
 
     @Prop(Array)
-    items!: ITodoItem[];
+    items!: ITodoItemGroup[];
 }
 </script>

@@ -95,13 +95,7 @@ import Button from '@/components/button.vue';
 import ItemGroup from '@/components/item-group.vue';
 import Country from '@/components/country.vue';
 import Countdown from '@/components/countdown.vue';
-import { ITodoItem } from '../store/item';
-
-export interface ITodoItemGroup {
-    title: string;
-    items: ITodoItem[];
-    id: string;
-}
+import { ITodoItem, ITodoItemGroup, TodoGroupType } from '@/services/sdk.interface';
 
 @Component({
     layout: 'dashboard',
@@ -117,51 +111,60 @@ export default class DashboardPage extends Vue {
         {
             id: '1',
             title: 'Places to visit',
+            groupType: TodoGroupType.PLACE,
             items: [
                 {
-                    id: 1,
+                    id: '1',
                     title: 'London (UK)',
                     image: '/imgs/london.jpg',
                     description: 'Go back home to lorum ipsum blah',
+                    isComplete: false,
                 },
                 {
-                    id: 2,
+                    id: '2',
                     title: 'San francisco (USA)',
                     image: '/imgs/sanfran.jpg',
                     description: 'Some lovely bridge this is, could be cool right?',
+                    isComplete: false,
                 }
             ],
         },
         {
             id: '2',
             title: 'Things to do',
+            groupType: TodoGroupType.ITEM,
             items: [
                 {
-                    id: 1,
+                    id: '1',
                     title: 'Go for a walk',
                     description: 'Maybe this second line looks cool but would never be typed in.',
+                    isComplete: false,
                 },
                 {
-                    id: 2,
+                    id: '2',
                     title: 'Purchase a new bike',
                     description: 'Totally should finally get that new XCR-1000 Electric bike!',
+                    isComplete: false,
                 },
                 {
-                    id: 3,
+                    id: '3',
                     title: 'Party on the streets!',
                     description: 'Make sure we still keep our distance ;)',
+                    isComplete: false,
                 }
             ],
         },
         {
             id: '3',
             title: 'Restaurants to eat at',
+            groupType: TodoGroupType.RESTAURANT,
             items: [
                 {
-                    id: 1,
+                    id: '1',
                     title: 'Lima 26',
                     image: '/imgs/taquenos.jpg',
                     description: 'Best peruvian restaurant in Marbella! (Okay theres only like 2)',
+                    isComplete: false,
                 },
             ],
         }
