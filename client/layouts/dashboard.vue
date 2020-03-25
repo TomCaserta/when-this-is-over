@@ -1,9 +1,9 @@
 <template>
-  <div class="page">
-    <div class="content">
-        <nuxt />
+    <div class="page">
+        <div class="content">
+            <nuxt />
+        </div>
     </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>

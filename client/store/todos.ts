@@ -40,11 +40,11 @@ export const mutations: MutationTree<TodoState> = {
 
 export const actions: ActionTree<TodoState, TodoState> = {
     async fetchTodos({ commit }) {
-        const todos = await sdk.getTodos();
+        const todos = await sdk.use(this.$axios).getTodos();
 
         commit(TodoMutations.SET_TODO_GROUPS, todos);
     },
     async addTodo({ commit }, todo: IAddTodoParams) {
-        commit(TodoMutations.ADD_TODO, await sdk.addTodo(todo));
+        commit(TodoMutations.ADD_TODO, await sdk.use(this.$axios).addTodo(todo));
     },
 };

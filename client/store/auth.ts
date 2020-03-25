@@ -58,12 +58,12 @@ export const mutations: MutationTree<AuthState> = {
 
 export const actions: ActionTree<AuthState, AuthState> = {
     async authorize({ commit }, token: string) {
-        const user = await sdk.authorize(token);
+        const user = await sdk.use(this.$axios).authorize(token);
 
         commit(AuthMutations.SET_USER_DATA, user);
     },
     async logout({ commit }) {
-        await sdk.logout();
+        await sdk.use(this.$axios).logout();
 
         commit(AuthMutations.CLEAR_DATA);
     }

@@ -1,3 +1,5 @@
+import { NuxtAxiosInstance } from '@nuxtjs/axios';
+
 import {
     ISignUpResponse,
     ISignUpParams,
@@ -16,10 +18,16 @@ import {
 
 export class SdkService {
     private sessionToken: string | null = null;
+    private axios: NuxtAxiosInstance | null = null;
 
     constructor(
         private url: string,
     ) {}
+
+    use(axios: NuxtAxiosInstance) {
+        this.axios = axios;
+        return this;
+    }
 
     signUp(email: string, country: string, initialTodo?: IAddTodoParams) {
         this.guardAuth(false);
@@ -120,24 +128,21 @@ export class SdkService {
     }
 
     private async request<T, P>(path: string, params: P): Promise<T> {
-        const headers = new Headers();
-
-        headers.set('Content-Type', 'application/json');
+        const headers: Record<string, string> = {};
 
         if (this.sessionToken) {
-            headers.set('X-AuthorizationToken', this.sessionToken);
+            headers['X-AuthorizationToken'] = this.sessionToken;
         }
 
-        const request = await fetch(
+        const response = await this.axios?.$post(
             `${this.url}/${path}`,
+            params,
             {
-                method: 'POST',
                 headers,
-                body: JSON.stringify(params),
             }
         );
 
-        const json: { error: string | boolean, res: T } = await request.json();
+        const json: { error: string | boolean, res: T } = response;
 
         if (json.error) {
             throw json.error;

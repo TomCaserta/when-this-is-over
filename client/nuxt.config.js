@@ -41,7 +41,7 @@ module.exports = {
     buildModules: [
         '@nuxt/typescript-build',
         // Doc: https://github.com/nuxt-community/stylelint-module
-        '@nuxtjs/stylelint-module'
+        '@nuxtjs/stylelint-module',
     ],
 
     /**
@@ -49,7 +49,8 @@ module.exports = {
      */
     modules: [
         '@nuxtjs/pwa',
-        '@nuxtjs/style-resources'
+        '@nuxtjs/style-resources',
+        '@nuxtjs/axios',
     ],
 
     styleResources: {

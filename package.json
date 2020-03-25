@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/TomCaserta/when-this-is-over#readme",
   "dependencies": {
+    "@nuxtjs/axios": "^5.9.5",
     "concurrently": "^5.1.0"
   }
 }
