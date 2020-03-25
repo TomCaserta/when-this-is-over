@@ -16,5 +16,5 @@ module.exports = {
       "pass": process.env.DB_MONGO_PASS || "",
     }
   }
-  
+
 };
