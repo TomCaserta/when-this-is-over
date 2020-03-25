@@ -235,4 +235,4 @@ export interface IAddTodoParams {
     image?: string;
 }
 
-export type IAddTodoResponse = null;
+export type IAddTodoResponse = ITodoItem;
