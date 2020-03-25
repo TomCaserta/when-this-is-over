@@ -6,12 +6,11 @@
             :style="{
                 '--bg': `url(${imageUrl})`
             }"
-        >
-        </div>
+        />
         <div class="item__details">
-            <h4>{{title}}</h4>
+            <h4>{{ title }}</h4>
             <p class="item__description">
-                {{description}}
+                {{ description }}
             </p>
         </div>
     </div>

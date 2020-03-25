@@ -1,25 +1,25 @@
 <template>
-  <div>
-       <div class="nav">
-           <input class="nav__task" placeholder="Enter a city, restaurant, thing you want to do, anything..." />
-           <Button class="nav__submit" variant="success" inline>
-               + ADD ITEM
-           </Button>
+    <div>
+        <div class="nav">
+            <input class="nav__task" placeholder="Enter a city, restaurant, thing you want to do, anything..." />
+            <Button class="nav__submit" variant="success" inline>
+                + ADD ITEM
+            </Button>
 
-           <Country class="nav__country" code="BR" />
-           <Countdown class="nav__countdown" email="tom@caserta.co.uk" :endDate="1586563200000" :totalDays="30" />
-       </div>
+            <Country class="nav__country" code="BR" />
+            <Countdown class="nav__countdown" email="tom@caserta.co.uk" :end-date="1586563200000" :total-days="30" />
+        </div>
 
-       <div class="lists">
-           <ItemGroup
-               v-for="group of groups"
-               class="lists__list"
-               :title="group.title"
-               :key="group.id"
-               :items="group.items"
-           />
-       </div>
-  </div>
+        <div class="lists">
+            <ItemGroup
+                v-for="group of groups"
+                class="lists__list"
+                :title="group.title"
+                :key="group.id"
+                :items="group.items"
+            />
+        </div>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -70,7 +70,6 @@
     }
 }
 
-
 .lists {
     width: 100%;
     padding: $space--large;
@@ -86,7 +85,6 @@
 }
 </style>
 
-
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
@@ -95,7 +93,7 @@ import Button from '@/components/button.vue';
 import ItemGroup from '@/components/item-group.vue';
 import Country from '@/components/country.vue';
 import Countdown from '@/components/countdown.vue';
-import { ITodoItem, ITodoItemGroup, TodoGroupType } from '@/services/sdk.interface';
+import { ITodoItemGroup, TodoGroupType } from '@/services/sdk.interface';
 
 @Component({
     layout: 'dashboard',

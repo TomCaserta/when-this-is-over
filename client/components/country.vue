@@ -1,7 +1,5 @@
 <template>
-    <div class="flag" :style="{ '--bg': `url(${background})`}">
-
-    </div>
+    <div class="flag" :style="{ '--bg': `url(${background})`}" />
 </template>
 
 <style lang="scss" scoped>

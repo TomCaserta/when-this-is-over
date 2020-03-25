@@ -1,7 +1,7 @@
 <template>
     <div class="countdown">
         <p class="countdown__info">
-            {{daysLeft}} days until we send an email to <b>{{email}}</b>
+            {{ daysLeft }} days until we send an email to <b>{{ email }}</b>
         </p>
         <ProgressBar class="countdown__progress" :percent="percent" />
     </div>

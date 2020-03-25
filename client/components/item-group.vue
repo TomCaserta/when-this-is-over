@@ -1,6 +1,8 @@
 <template>
     <div class="group">
-        <h3 class="group__title">{{title}}</h3>
+        <h3 class="group__title">
+            {{ title }}
+        </h3>
         <div class="group__items">
             <Item
                 v-for="item of items"
@@ -8,7 +10,7 @@
                 :key="item.id"
                 :title="item.title"
                 :description="item.description"
-                :imageUrl="item.image"
+                :image-url="item.image"
             />
         </div>
     </div>
@@ -27,7 +29,7 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
 import Item from "@/components/item.vue";
-import { ITodoItem, ITodoItemGroup } from '@/services/sdk.interface';
+import { ITodoItemGroup } from '@/services/sdk.interface';
 
 @Component({
     components: {

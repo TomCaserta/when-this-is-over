@@ -1,20 +1,22 @@
 <template>
-  <div class="intro">
-        <h1 class="intro__title">When This Is Over</h1>
+    <div class="intro">
+        <h1 class="intro__title">
+            When This Is Over
+        </h1>
         <p class="intro__desc">
-          In quarantine and feel like you have lots of ideas and plans but no way to do them right now? Lets keep some promises together. Begin by adding a place you would like to visit or a thing you need to do and we’ll email you to remind you as soon as the lockdown is over in your city!
+            In quarantine and feel like you have lots of ideas and plans but no way to do them right now? Lets keep some promises together. Begin by adding a place you would like to visit or a thing you need to do and we’ll email you to remind you as soon as the lockdown is over in your city!
         </p>
 
         <input
-          class="intro__task"
-          autofocus
-          placeholder="Enter a city, restaurant, thing you want to do, anything..."
+            class="intro__task"
+            autofocus
+            placeholder="Enter a city, restaurant, thing you want to do, anything..."
         />
 
         <Button class="intro__button" variant="success">
             BEGIN PLANNING
         </Button>
-  </div>
+    </div>
 </template>
 
 <script lang="ts">

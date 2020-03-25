@@ -16,7 +16,7 @@ export enum TodoMutations {
 export type TodoState = ReturnType<typeof state>
 
 export const getters: GetterTree<TodoState, TodoState> = {
-    groups: state => state.groups,
+    groups: (state) => state.groups,
 };
 
 export const mutations: MutationTree<TodoState> = {

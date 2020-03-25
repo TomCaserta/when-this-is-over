@@ -26,10 +26,10 @@ export enum AuthMutations {
 export type AuthState = ReturnType<typeof state>
 
 export const getters: GetterTree<AuthState, AuthState> = {
-    email: state => state.email,
-    isLoggedIn: state => !!state.email,
-    country: state => state.country,
-    countryData: state => (
+    email: (state) => state.email,
+    isLoggedIn: (state) => !!state.email,
+    country: (state) => state.country,
+    countryData: (state) => (
         state.countryData
     ),
 };
