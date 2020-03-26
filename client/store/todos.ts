@@ -34,6 +34,7 @@ export const mutations: MutationTree<TodoState> = {
             return group.groupType === params.type;
         });
 
+        // eslint-disable-next-line no-unused-expressions
         group?.items.push(params.todo);
     },
 };

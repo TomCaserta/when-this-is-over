@@ -75,6 +75,8 @@ module.exports = {
      * Environment Variabls
      **/
     env: {
-        API_URL: 'https://localhost:3001'
+        API_URL: 'https://localhost:3001',
+        // TODO: Restrict and remove from GitHub source (although it'l still be client side on site).
+        PLACES_API_KEY: 'AIzaSyCIR2B3fGJHEuiM0GLqaFgeqr90YmtPryM',
     },
 }

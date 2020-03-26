@@ -12,10 +12,3 @@ declare namespace NodeJS {
         server: boolean
     }
 }
-
-declare module 'vuex/types/index' {
-  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
-  interface Store<S> {
-    $axios: NuxtAxiosInstance,
-  }
-}
