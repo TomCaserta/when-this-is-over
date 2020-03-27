@@ -1,4 +1,4 @@
-import { User, IUserModel } from '~/components/user/user.model';
+import { User } from '~/components/user/user.model';
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import config from 'config';
@@ -16,23 +16,21 @@ export default class UserController {
       return res.status(400).json({ error: 'missing_credentials' });
     }
 
-    let user: IUserModel;
+    return await User.findOne({ email }).orFail()
+      .then(user => {
+        if (!user || !user.checkPassword(password)) {
+          return res.status(401).json({ error: 'invalid_credentials' });
+        }
 
-    try {
-      user = await User.findOne({ email }).exec() as IUserModel;
-    } catch (error) {
-      return res.status(401).json({ error: 'invalid_credentials' });
-    }
+        const token = jwt.sign({ id: user._id, email }, secret, {
+          expiresIn: config.get('auth.expire')
+        });
 
-    if (!user.checkPassword(password)) {
-      return res.status(401).json({ error: 'invalid_credentials' });
-    }
-
-    const token = jwt.sign({ id: user._id, email }, secret, {
-      expiresIn: config.get('auth.expire')
-    });
-
-    return res.json({ token });
+        return res.json({ token });
+      })
+      .catch(() => {
+        return res.status(401).json({ error: 'invalid_credentials' });
+      });
   }
 
 }
