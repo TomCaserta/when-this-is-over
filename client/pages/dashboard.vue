@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="nav">
-            <input class="nav__task" placeholder="Enter a city, restaurant, thing you want to do, anything..." />
+            <ToDoField class="nav__task" />
             <Button class="nav__submit" variant="success" inline>
                 + ADD ITEM
             </Button>
@@ -93,6 +93,7 @@ import Button from '@/components/button.vue';
 import ItemGroup from '@/components/item-group.vue';
 import Country from '@/components/country.vue';
 import Countdown from '@/components/countdown.vue';
+import ToDoField from '@/components/todo-field.vue';
 import { ITodoItemGroup, TodoGroupType } from '@/services/sdk.interface';
 
 @Component({
@@ -102,6 +103,7 @@ import { ITodoItemGroup, TodoGroupType } from '@/services/sdk.interface';
         ItemGroup,
         Country,
         Countdown,
+        ToDoField,
     }
 })
 export default class DashboardPage extends Vue {

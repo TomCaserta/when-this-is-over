@@ -18,7 +18,7 @@ export function debounce<Func extends (...args: any[]) => any>(
             }
         };
 
-        const shouldCallNow = true && timeoutId === undefined;
+        const shouldCallNow = immediate && timeoutId === undefined;
 
         if (timeoutId !== undefined) {
             window.clearTimeout(timeoutId);
@@ -32,7 +32,7 @@ export function debounce<Func extends (...args: any[]) => any>(
     } as any;
 }
 
-export const Debounce = (wait: number, immediate: boolean) => createDecorator((options, key) => {
+export const Debounce = (wait: number, immediate: boolean = false) => createDecorator((options, key) => {
     const func = options.methods![key];
 
     if (func && wait > 0) {

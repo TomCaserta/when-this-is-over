@@ -7,11 +7,7 @@
             In quarantine and feel like you have lots of ideas and plans but no way to do them right now? Lets keep some promises together. Begin by adding a place you would like to visit or a thing you need to do and we’ll email you to remind you as soon as the lockdown is over in your city!
         </p>
 
-        <input
-            class="intro__task"
-            autofocus
-            placeholder="Enter a city, restaurant, thing you want to do, anything..."
-        />
+        <ToDoField class="intro__task" />
 
         <Button class="intro__button" variant="success">
             BEGIN PLANNING
@@ -24,10 +20,12 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
 import Button from '@/components/button.vue';
+import ToDoField from '@/components/todo-field.vue';
 
 @Component({
     components: {
-        Button
+        Button,
+        ToDoField,
     }
 })
 export default class IndexPage extends Vue {
