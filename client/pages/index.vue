@@ -36,11 +36,11 @@ export default class IndexPage extends Vue {
 <style lang="scss" scoped>
 .intro {
     @include grid(12);
-    text-align: center;
 
     &__title {
         margin-top: $space--x-large;
         color: $heading-text--contrast;
+        text-align: center;
 
         grid-column: span 12;
         grid-row: 1;
@@ -48,6 +48,7 @@ export default class IndexPage extends Vue {
 
     &__desc {
         color: $body-text--contrast;
+        text-align: center;
 
         grid-column: span 12;
         grid-row: 2;

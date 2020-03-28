@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="nav">
-            <ToDoField class="nav__task" />
+            <ToDoField can-overflow class="nav__task" />
             <Button class="nav__submit" variant="success" inline>
                 + ADD ITEM
             </Button>

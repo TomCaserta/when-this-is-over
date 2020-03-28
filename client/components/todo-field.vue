@@ -25,6 +25,9 @@
             <div
                 v-if="isTyping && showSuggestions"
                 class="autocomplete"
+                :class="{
+                    'can-overflow': canOverflow
+                }"
             >
                 <div
                     class="autocomplete__add"
@@ -106,12 +109,16 @@ $hover-color: lighten($secondary, 55%);
     @include paragraph();
 
     width: 100%;
-    min-width: 50vw;
-    max-width: 100vw;
     background: #fff;
-    border-radius: 0px 5px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
     padding: 0px $space--small #{$space + $powered-by-height};
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
+    &.can-overflow {
+        min-width: 50vw;
+        max-width: 100vw;
+        border-radius: 0px 5px 5px 5px;
+    }
 
     &__powered-by {
         position: absolute;
@@ -216,6 +223,9 @@ const autocompleteCache = new Map<string, Promise<IAutoCompletePlaceResponse>>()
 export default class ToDoField extends Vue {
     @Prop(String)
     value!: ITodoValue;
+
+    @Prop(Boolean)
+    canOverflow!: boolean;
 
     task: string = '';
     showSuggestions: boolean = false;
