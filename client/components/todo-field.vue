@@ -26,7 +26,7 @@
                 <div class="autocomplete__suggestions">
                     <ul class="autocomplete__items">
                         <li class="autocomplete__item autocomplete__item--heading">
-                            Places
+                            Cities
                         </li>
                         <li class="autocomplete__item">Paris</li>
                         <li class="autocomplete__item">Paris</li>
@@ -36,7 +36,7 @@
                     </ul>
                     <ul class="autocomplete__items">
                         <li class="autocomplete__item autocomplete__item--heading">
-                            Restaurants
+                            Places/Restaurants
                         </li>
                         <li class="autocomplete__item">Lima 26</li>
                         <li class="autocomplete__item">Lima 26</li>
@@ -217,15 +217,15 @@ export default class ToDoField extends Vue {
     }
 
     autocomplete(): Promise<{ cities: Place[], establishments: Place[] }> {
-        return this.$axios.$get(
-            process.env.API_URL + '/autocomplete',
+        // TODO: Move to SDK
+        return this.$axios.$post(
+            process.env.API_URL + '/autocomplete/place',
             {
-                params: {
-                    key: process.env.PLACES_API_KEY!,
-                    input: this.task,
-                    tokens: [this.establishmentSession, this.citiesSession],
-                    offset: this.getTaskInput().selectionEnd,
-                }
+                key: process.env.PLACES_API_KEY!,
+                input: this.task,
+                // TODO: Generate tokens server side. For now this is simple.
+                tokens: [this.establishmentSession, this.citiesSession],
+                offset: this.getTaskInput().selectionEnd,
             }
         );
     }

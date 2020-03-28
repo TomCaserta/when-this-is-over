@@ -65,16 +65,12 @@ module.exports = {
      */
     build: {
 
-        /**
-         * You can extend webpack config here
-         */
-        extend(config, ctx) {}
     },
 
     /**
      * Environment Variabls
      **/
     env: {
-        API_URL: 'https://localhost:3001',
+        API_URL: 'http://localhost:3001',
     },
 }
