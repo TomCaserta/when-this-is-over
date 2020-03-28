@@ -78,7 +78,11 @@ export default class PlaceHighlighter extends Vue {
             secondary_text_matched_substrings: secondaryMatches,
         } = this.place.structured_formatting;
 
-        return h(this.tag, [
+        return h(this.tag, {
+            on: {
+                click: () => this.$emit('click')
+            }
+        }, [
             this.coverAllSubstrings(mainText, matches || []).map(({ text, matched }, i) => {
                 return h('span',  { key: `substr-${i}`, attrs: { class: matched ? 'match' : '' } }, text)
             }),

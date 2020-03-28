@@ -9,6 +9,8 @@
             @keydown.down.capture="move(0, 1, $event)"
             @keydown.right.capture="move(1, 0, $event)"
             @keyup.enter="chooseAutocompleteItem()"
+            @mouseenter="setInElement(true)"
+            @mouseleave="setInElement(false)"
         >
             <input
                 class="task"
@@ -17,8 +19,8 @@
                 v-model="task"
                 autofocus
                 placeholder="Enter a city, restaurant, thing you want to do, anything.."
-                @focus="showSuggestions = true"
-                @blur="showSuggestions = false"
+                @focus.capture="setFocus(true)"
+                @blur.capture="setFocus(false)"
             />
             <div
                 v-if="isTyping && showSuggestions"
@@ -27,6 +29,7 @@
                 <div
                     class="autocomplete__add"
                     :class="{ 'highlight': isSelected('add') }"
+                    @click="chooseAutocompleteItem('add')"
                 >
                     <img class="autocomplete__plus" src="/imgs/plus.svg" width="12" height="12" />
                     <span>Add just ‘<b>{{ task }}</b>’ to your things to do list.</span>
@@ -44,6 +47,7 @@
                             :class="{ 'highlight': isSelected(city) }"
                             :key="city.id"
                             :place="city"
+                            @click="chooseAutocompleteItem(city.place_id)"
                         />
                     </ul>
                     <ul class="autocomplete__items" v-if="establishments.length">
@@ -59,6 +63,7 @@
                             :class="{ 'highlight': isSelected(establishment) }"
                             :key="establishment.id"
                             :place="establishment"
+                            @click="chooseAutocompleteItem(establishment.place_id)"
                         />
                     </ul>
                 </div>
@@ -214,6 +219,8 @@ export default class ToDoField extends Vue {
 
     task: string = '';
     showSuggestions: boolean = false;
+    isFocussed = false;
+    isInElement = false;
 
     cities: Place[] = [];
     establishments: Place[] = [];
@@ -230,6 +237,12 @@ export default class ToDoField extends Vue {
     // TODO: See if we can get rid of this little monster
     // skips the next search if value is set outside
     skipNext: boolean = false;
+
+    mounted() {
+        if (document.activeElement === this.getTaskInput()) {
+            this.showSuggestions = true;
+        }
+    }
 
     get isTyping() {
         return this.task !== '';
@@ -250,6 +263,24 @@ export default class ToDoField extends Vue {
             newPosX < 0 ? 0 : newPosX,
             newPosY < 0 ? 0 : newPosY,
         );
+    }
+
+    setFocus(isFocussed: boolean) {
+        this.isFocussed = isFocussed;
+
+        if (isFocussed) {
+            this.showSuggestions = true;
+        } else if (!this.isInElement) {
+            this.showSuggestions = false;
+        }
+    }
+
+    setInElement(isInElement: boolean) {
+        this.isInElement = isInElement;
+
+        if (!this.isFocussed && !isInElement) {
+            this.showSuggestions = false;
+        }
     }
 
     getItemAtPosition(x: number, y: number) {
@@ -289,13 +320,13 @@ export default class ToDoField extends Vue {
             return { x: 0, y: 1, item: this.task };
         }
 
-        const city = this.cities.findIndex((place) => this.isSelected(place));
+        const city = this.cities.findIndex((place) => this.isSelected(place, item));
 
         if (city !== -1) {
             return { x: 0, y: city + 2, item: this.cities[city] };
         }
 
-        const establishment = this.establishments.findIndex((place) => this.isSelected(place));
+        const establishment = this.establishments.findIndex((place) => this.isSelected(place, item));
 
         if (establishment !== -1) {
             return { x: 1, y: establishment + 2, item: this.establishments[establishment] };
@@ -304,12 +335,12 @@ export default class ToDoField extends Vue {
         return { x: 0, y: 0, item: this.task };
     }
 
-    isSelected(item: Place | TodoSelection) {
+    isSelected(item: Place | TodoSelection, selected = this.selectedItemId) {
         if (typeof item !== 'string') {
-            return item.place_id === this.selectedItemId;
+            return item.place_id === selected;
         }
 
-        return this.selectedItemId === item;
+        return item === selected;
     }
 
     @Watch('value')
@@ -324,9 +355,9 @@ export default class ToDoField extends Vue {
         return todo;
     }
 
-    chooseAutocompleteItem() {
+    chooseAutocompleteItem(item = this.selectedItemId) {
         this.showSuggestions = false;
-        const selected = this.getSelected(this.selectedItemId).item;
+        const selected = this.getSelected(item).item;
 
         // Guard for TS purposes. Probably rewrite this so it doesn't suck.
         if (typeof selected === 'string') {
@@ -360,7 +391,7 @@ export default class ToDoField extends Vue {
         return this.$refs.task as HTMLInputElement;
     }
 
-    @Debounce(400, true)
+    @Debounce(300, false)
     async searchEstablishments() {
         if (this.task.length < 3 || this.skipNext) {
             this.skipNext = false;
@@ -372,7 +403,7 @@ export default class ToDoField extends Vue {
         const {
             establishments,
             cities,
-         } = await this.autocomplete();
+         } = await this.autocomplete(this.task.trim());
 
         if (count !== this.reqCount) {
             // Cancel, another req came in as they were typing
@@ -383,19 +414,19 @@ export default class ToDoField extends Vue {
         this.establishments = establishments;
     }
 
-    autocomplete() {
-        if (autocompleteCache.has(this.task)) {
-            return autocompleteCache.get(this.task)!;
+    autocomplete(task: string) {
+        if (autocompleteCache.has(task)) {
+            return autocompleteCache.get(task)!;
         }
 
         const resp = sdk.use(this.$axios).autocompletePlace({
-            input: this.task,
+            input: task,
             // TODO: Generate tokens server side. For now this is simple.
             tokens: [this.establishmentSession, this.citiesSession],
-            offset: this.getTaskInput().selectionEnd || this.task.length,
+            offset: this.getTaskInput().selectionEnd || task.length,
         });
 
-        autocompleteCache.set(this.task, resp);
+        autocompleteCache.set(task, resp);
         return resp;
     }
 }
