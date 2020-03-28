@@ -2,24 +2,32 @@
     <div class="todo-field">
         <div
             :class="{
-                'todo-field__shadow-wrapper': isTyping && isInField,
+                'todo-field__shadow-wrapper': isTyping && showSuggestions,
             }"
+            @keydown.up.capture="move(0, -1, $event)"
+            @keydown.left.capture="move(-1, 0, $event)"
+            @keydown.down.capture="move(0, 1, $event)"
+            @keydown.right.capture="move(1, 0, $event)"
+            @keyup.enter="chooseAutocompleteItem()"
         >
             <input
                 class="task"
-                :class="{ 'has-suggestions': isTyping && isInField }"
+                :class="{ 'has-suggestions': isTyping && showSuggestions }"
                 ref="task"
                 v-model="task"
                 autofocus
                 placeholder="Enter a city, restaurant, thing you want to do, anything.."
-                @focus="isInField = true"
-                @blur="isInField = false"
+                @focus="showSuggestions = true"
+                @blur="showSuggestions = false"
             />
             <div
-                v-if="isTyping && isInField"
+                v-if="isTyping && showSuggestions"
                 class="autocomplete"
             >
-                <div class="autocomplete__add">
+                <div
+                    class="autocomplete__add"
+                    :class="{ 'highlight': isSelected('add') }"
+                >
                     <img class="autocomplete__plus" src="/imgs/plus.svg" width="12" height="12" />
                     <span>Add just ‘<b>{{ task }}</b>’ to your things to do list.</span>
                 </div>
@@ -33,6 +41,7 @@
                             tag="li"
                             class="autocomplete__item"
                             secondary
+                            :class="{ 'highlight': isSelected(city) }"
                             :key="city.id"
                             :place="city"
                         />
@@ -47,6 +56,7 @@
                             tag="li"
                             class="autocomplete__item"
                             secondary
+                            :class="{ 'highlight': isSelected(establishment) }"
                             :key="establishment.id"
                             :place="establishment"
                         />
@@ -61,6 +71,7 @@
 <style lang="scss" scoped>
 $powered-by-width: 288px / 2;
 $powered-by-height: 36px / 2;
+$hover-color: lighten($secondary, 55%);
 
 .todo-field {
     width: 100%;
@@ -86,12 +97,16 @@ $powered-by-height: 36px / 2;
 }
 
 .autocomplete {
+    position: relative;
     @include paragraph();
 
     width: 100%;
+    min-width: 50vw;
+    max-width: 100vw;
     background: #fff;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 5px 5px 5px;
     padding: 0px $space--small #{$space + $powered-by-height};
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 
     &__powered-by {
         position: absolute;
@@ -112,6 +127,11 @@ $powered-by-height: 36px / 2;
         border-bottom: 1px solid $light-gray;
         // Maybe make small text size larger?
         font-size: 10px;
+
+        &.highlight, &:hover {
+            background: $hover-color;
+            cursor: pointer;
+        }
     }
 
     &__suggestions {
@@ -126,16 +146,27 @@ $powered-by-height: 36px / 2;
         list-style: none;
         flex: 1 1;
         margin: 0px;
-        padding: 0px $space--small;
+        padding: 0px;
     }
 
     &__item {
         margin: $space--x-small 0px;
+        padding: $space--small;
+
+        &.highlight, &:hover {
+            background: $hover-color;
+            cursor: pointer;
+        }
 
         &--heading {
             @include heading_four();
 
             margin: $space--small 0px;
+
+            &:hover {
+                cursor: initial;
+                background: none;
+            }
         }
     }
 }
@@ -145,13 +176,22 @@ $powered-by-height: 36px / 2;
 import Vue from 'vue';
 import { Component, Prop, Emit, Watch } from 'vue-property-decorator';
 import { v4 as uuidv4 } from 'uuid';
+import { sdk } from '../services/sdk.service';
 
 import PlaceHighlighter from '@/components/place-highlighter.vue';
 
-import { IAddTodoParams, Place } from '@/services/sdk.interface';
+import {  Place } from '@/services/sdk.interface';
 import { Debounce } from '@/utils/debounce';
-import { sdk } from '../services/sdk.service';
 
+enum TodoSelection {
+    ADD = 'add',
+    NONE = 'none',
+}
+
+export interface ITodoValue {
+    placeId?: string;
+    title: string;
+}
 
 @Component({
     model: {
@@ -164,13 +204,16 @@ import { sdk } from '../services/sdk.service';
 })
 export default class ToDoField extends Vue {
     @Prop(String)
-    value!: IAddTodoParams;
+    value!: ITodoValue;
 
     task: string = '';
-    isInField: boolean = false;
+    showSuggestions: boolean = false;
 
     cities: Place[] = [];
     establishments: Place[] = [];
+
+    // Current item selected in the overlay
+    selectedItemId: string | TodoSelection = TodoSelection.NONE;
 
     /**
      * Google bills per auto complete session.
@@ -178,14 +221,119 @@ export default class ToDoField extends Vue {
     citiesSession: string = uuidv4();
     establishmentSession: string = uuidv4();
     reqCount: number = 0;
+    // TODO: See if we can get rid of this little monster
+    // skips the next search if value is set outside
+    skipNext: boolean = false;
 
     get isTyping() {
         return this.task !== '';
     }
 
+    move(addX: number, addY: number, event?: KeyboardEvent) {
+        const { x, y } = this.getSelected(this.selectedItemId);
+
+        const newPosX = x + addX;
+        const newPosY = y + addY;
+        this.showSuggestions = true;
+
+        if (newPosY > 0 && event) {
+            event.preventDefault();
+        }
+
+        this.selectedItemId = this.getItemAtPosition(
+            newPosX < 0 ? 0 : newPosX,
+            newPosY < 0 ? 0 : newPosY,
+        );
+    }
+
+    getItemAtPosition(x: number, y: number) {
+        if (y === 1) {
+            return TodoSelection.ADD;
+        }
+
+        if (y === 0) {
+            return TodoSelection.NONE;
+        }
+
+        const placesWithData = [this.cities, this.establishments].filter((list) => list.length > 0);
+
+        if (placesWithData.length === 0) {
+            return TodoSelection.ADD;
+        }
+
+        // Account for items above
+        y -= 2;
+        const column = Math.min(x % 2, placesWithData.length - 1);
+        const items = placesWithData[column];
+        const row = y % items.length;
+
+        return items[row].place_id;
+    }
+
+    getSelected(item: string | TodoSelection) {
+        // We have to keep track by searching this as we don't want to lose
+        // the cursor position while a user is typing.
+
+        // TODO: Try and clean this spaghetti up.
+        if (item === TodoSelection.NONE) {
+            return { x: 0, y: 0, item: this.task };
+        }
+
+        if (item === TodoSelection.ADD) {
+            return { x: 0, y: 1, item: this.task };
+        }
+
+        const city = this.cities.findIndex((place) => this.isSelected(place));
+
+        if (city !== -1) {
+            return { x: 0, y: city + 2, item: this.cities[city] };
+        }
+
+        const establishment = this.establishments.findIndex((place) => this.isSelected(place));
+
+        if (establishment !== -1) {
+            return { x: 1, y: establishment + 2, item: this.establishments[establishment] };
+        }
+
+        return { x: 0, y: 0, item: this.task };
+    }
+
+    isSelected(item: Place | TodoSelection) {
+        if (typeof item !== 'string') {
+            return item.place_id === this.selectedItemId;
+        }
+
+        return this.selectedItemId === item;
+    }
+
+    @Watch('value')
+    setTask() {
+        this.task = this.value.title;
+        this.selectedItemId = this.value.placeId || TodoSelection.NONE;
+        this.skipNext = true;
+    }
+
     @Emit('change')
-    setValue(todo: IAddTodoParams) {
+    setValue(todo: ITodoValue) {
         return todo;
+    }
+
+    chooseAutocompleteItem() {
+        this.showSuggestions = false;
+        const selected = this.getSelected(this.selectedItemId).item;
+
+        // Guard for TS purposes. Probably rewrite this so it doesn't suck.
+        if (typeof selected === 'string') {
+            this.setValue({
+                title: selected,
+            });
+        } else {
+            this.setValue({
+                title: selected.description,
+                placeId: selected.place_id,
+            });
+            this.task = selected.description;
+        }
     }
 
     @Watch('task')
@@ -195,6 +343,8 @@ export default class ToDoField extends Vue {
             // this might get expensive :D hope not though.
             this.citiesSession = uuidv4();
             this.establishmentSession = uuidv4();
+            this.establishments = [];
+            this.cities = [];
         }
 
         this.searchEstablishments();
@@ -204,9 +354,10 @@ export default class ToDoField extends Vue {
         return this.$refs.task as HTMLInputElement;
     }
 
-    @Debounce(300, false)
+    @Debounce(400, true)
     async searchEstablishments() {
-        if (this.task.length < 3) {
+        if (this.task.length < 3 || this.skipNext) {
+            this.skipNext = false;
             return;
         }
 
@@ -222,8 +373,6 @@ export default class ToDoField extends Vue {
             return;
         }
 
-        // TODO: Use this data.
-        console.log(establishments, cities);
         this.cities = cities;
         this.establishments = establishments;
     }
