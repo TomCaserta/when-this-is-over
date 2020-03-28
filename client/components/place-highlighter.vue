@@ -51,13 +51,13 @@ export default class PlaceHighlighter extends Vue {
             if (offset !== posCovered) {
                 sections.push({
                     matched: false,
-                    text: text.substring(posCovered, offset),
+                    text: text.substring(posCovered, posCovered+offset),
                 });
             }
 
-            sections.push({ matched: true, text: text.substring(offset, length)})
+            sections.push({ matched: true, text: text.substring(offset, offset+length)})
 
-            posCovered += length;
+            posCovered = offset + length;
         }
 
         if (posCovered !== text.length) {
