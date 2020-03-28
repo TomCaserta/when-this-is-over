@@ -12,3 +12,8 @@ declare namespace NodeJS {
         server: boolean
     }
 }
+
+declare module "vue-js-modal/dist/ssr.index.js" {
+    const x: any;
+	export default x;
+}
