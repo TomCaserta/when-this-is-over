@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import consola from 'consola';
 import express, { Express } from 'express';
 import config from 'config';
+import cors from 'cors';
 
 import { router } from '~/router';
 
@@ -27,13 +28,15 @@ export const application = async (): Promise<Express> => {
     .then(() => {
       const app = express();
 
+      // TODO: Specify specific origins for CORS requests.
+      app.use(cors());
       app.use(express.json());
       app.use(express.urlencoded({ extended: true }));
       app.use(router);
 
       return app;
     })
-    .catch(() => {
+    .catch((e) => {
       return abort('Could not connect to MongoDB');
     });
 };

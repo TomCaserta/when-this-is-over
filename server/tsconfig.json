@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "strict": true,
+    "allowJs": true,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
@@ -13,7 +14,8 @@
     },
     "types": [
       "@types/node",
-      "@types/express"
+      "@types/express",
+      "@types/node-fetch",
     ]
   },
   "exclude": [
