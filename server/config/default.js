@@ -21,9 +21,12 @@ module.exports = {
     "secret": process.env.AUTH_SECRET || "secret",
     "expire": process.env.AUTH_EXPIRE || "1h",
   },
-  
+
   "hash": {
     "rounds": process.env.HASH_ROUNDS || 8,
-  }
-  
+  },
+
+  "google": {
+    "api_key": process.env.GOOGLE_API_KEY || "unset",
+  },
 };

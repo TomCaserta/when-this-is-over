@@ -24,6 +24,9 @@ module.exports = {
 
   "hash": {
     "rounds": process.env.HASH_ROUNDS || 10,
-  }
+  },
 
+  "google": {
+    "api_key": process.env.GOOGLE_API_KEY || "unset",
+  },
 };
