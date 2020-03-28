@@ -24,45 +24,32 @@
                     <span>Add just ‘<b>{{ task }}</b>’ to your things to do list.</span>
                 </div>
                 <div class="autocomplete__suggestions">
-                    <ul class="autocomplete__items">
+                    <ul class="autocomplete__items" v-if="cities.length">
                         <li class="autocomplete__item autocomplete__item--heading">
                             Cities
                         </li>
-                        <template v-if="cities.length">
-                            <place-highlighter
-                                v-for="city of cities"
-                                tag="li"
-                                class="autocomplete__item"
-                                secondary
-                                :key="city.id"
-                                :place="city"
-                            />
-                        </template>
-                        <template v-else>
-                            <li class="autocomplete__item">
-                                No cities found :(
-                            </li>
-                        </template>
+                        <place-highlighter
+                            v-for="city of cities"
+                            tag="li"
+                            class="autocomplete__item"
+                            secondary
+                            :key="city.id"
+                            :place="city"
+                        />
                     </ul>
-                    <ul class="autocomplete__items">
+                    <ul class="autocomplete__items" v-if="establishments.length">
                         <li class="autocomplete__item autocomplete__item--heading">
                             Places/Restaurants
                         </li>
 
-                        <template v-if="establishments.length">
-                            <place-highlighter
-                                v-for="establishment of establishments"
-                                tag="li"
-                                class="autocomplete__item"
-                                :key="establishment.id"
-                                :place="establishment"
-                            />
-                        </template>
-                        <template v-else>
-                            <li class="autocomplete__item">
-                                No restaurants found.
-                            </li>
-                        </template>
+                        <place-highlighter
+                            v-for="establishment of establishments"
+                            tag="li"
+                            class="autocomplete__item"
+                            secondary
+                            :key="establishment.id"
+                            :place="establishment"
+                        />
                     </ul>
                 </div>
                 <div class="autocomplete__powered-by" />
@@ -102,10 +89,9 @@ $powered-by-height: 36px / 2;
     @include paragraph();
 
     width: 100%;
-    min-height: 200px;
     background: #fff;
     border-radius: 0px 0px 5px 5px;
-    padding: 0px $space--small #{$space--small + $powered-by-height};
+    padding: 0px $space--small #{$space + $powered-by-height};
 
     &__powered-by {
         position: absolute;
