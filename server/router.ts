@@ -8,4 +8,3 @@ export const router = Router();
 router.use('/', index);
 router.use('/users', user);
 router.use('/autocomplete', autocomplete);
-

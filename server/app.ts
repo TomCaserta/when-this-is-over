@@ -7,36 +7,38 @@ import cors from 'cors';
 import { router } from '~/router';
 
 export const application = async (): Promise<Express> => {
-  const abort = (message: string): never => {
-    consola.fatal({ message, badge: true });
-    return process.exit(1);
-  };
+    const abort = (message: string): never => {
+        consola.fatal({ message, badge: true });
+        return process.exit(1);
+    };
 
-  if (!config.has('auth.secret') || !config.get('auth.secret')) {
-    abort('No key for encryption found');
-  }
-
-  const connection = {
-    url: config.get('db.mongo.url') as string,
-    options: {
-      user: config.get('db.mongo.user') as string,
-      pass: config.get('db.mongo.pass') as string
+    if (!config.has('auth.secret') || !config.get('auth.secret')) {
+        abort('No key for encryption found');
     }
-  };
 
-  return await mongoose.connect(connection.url, { ...connection.options, useNewUrlParser: true })
-    .then(() => {
-      const app = express();
+    const connection = {
+        url: config.get('db.mongo.url') as string,
+        options: {
+            //user: config.get('db.mongo.user') as string,
+            //pass: config.get('db.mongo.pass') as string,
+            useUnifiedTopology: true,
+            useNewUrlParser: true,
+        }
+    };
 
-      // TODO: Specify specific origins for CORS requests.
-      app.use(cors());
-      app.use(express.json());
-      app.use(express.urlencoded({ extended: true }));
-      app.use(router);
+    return await mongoose.connect(connection.url, { ...connection.options })
+        .then(() => {
+            const app = express();
 
-      return app;
-    })
-    .catch((e) => {
-      return abort('Could not connect to MongoDB');
-    });
+            // TODO: Specify specific origins for CORS requests.
+            app.use(cors());
+            app.use(express.json());
+            app.use(express.urlencoded({ extended: true }));
+            app.use(router);
+
+            return app;
+        })
+        .catch((e) => {
+            return abort('Could not connect to MongoDB');
+        });
 };
