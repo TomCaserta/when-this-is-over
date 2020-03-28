@@ -180,7 +180,7 @@ import { sdk } from '../services/sdk.service';
 
 import PlaceHighlighter from '@/components/place-highlighter.vue';
 
-import {  Place } from '@/services/sdk.interface';
+import {  Place, IAutoCompletePlaceResponse } from '@/services/sdk.interface';
 import { Debounce } from '@/utils/debounce';
 
 enum TodoSelection {
@@ -192,6 +192,12 @@ export interface ITodoValue {
     placeId?: string;
     title: string;
 }
+
+/**
+ * Autocomplete cache to avoid re-requesting the same data for the
+ * same task text.
+ */
+const autocompleteCache = new Map<string, Promise<IAutoCompletePlaceResponse>>();
 
 @Component({
     model: {
@@ -378,12 +384,19 @@ export default class ToDoField extends Vue {
     }
 
     autocomplete() {
-        return sdk.use(this.$axios).autocompletePlace({
+        if (autocompleteCache.has(this.task)) {
+            return autocompleteCache.get(this.task)!;
+        }
+
+        const resp = sdk.use(this.$axios).autocompletePlace({
             input: this.task,
             // TODO: Generate tokens server side. For now this is simple.
             tokens: [this.establishmentSession, this.citiesSession],
             offset: this.getTaskInput().selectionEnd || this.task.length,
         });
+
+        autocompleteCache.set(this.task, resp);
+        return resp;
     }
 }
 </script>
