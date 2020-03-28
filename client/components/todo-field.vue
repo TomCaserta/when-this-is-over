@@ -28,20 +28,41 @@
                         <li class="autocomplete__item autocomplete__item--heading">
                             Cities
                         </li>
-                        <li class="autocomplete__item">Paris</li>
-                        <li class="autocomplete__item">Paris</li>
-                        <li class="autocomplete__item">Paris</li>
-                        <li class="autocomplete__item">Paris</li>
-                        <li class="autocomplete__item">Paris</li>
+                        <template v-if="cities.length">
+                            <place-highlighter
+                                v-for="city of cities"
+                                tag="li"
+                                class="autocomplete__item"
+                                secondary
+                                :key="city.id"
+                                :place="city"
+                            />
+                        </template>
+                        <template v-else>
+                            <li class="autocomplete__item">
+                                No cities found :(
+                            </li>
+                        </template>
                     </ul>
                     <ul class="autocomplete__items">
                         <li class="autocomplete__item autocomplete__item--heading">
                             Places/Restaurants
                         </li>
-                        <li class="autocomplete__item">Lima 26</li>
-                        <li class="autocomplete__item">Lima 26</li>
-                        <li class="autocomplete__item">Lima 26</li>
-                        <li class="autocomplete__item">Lima 26</li>
+
+                        <template v-if="establishments.length">
+                            <place-highlighter
+                                v-for="establishment of establishments"
+                                tag="li"
+                                class="autocomplete__item"
+                                :key="establishment.id"
+                                :place="establishment"
+                            />
+                        </template>
+                        <template v-else>
+                            <li class="autocomplete__item">
+                                No restaurants found.
+                            </li>
+                        </template>
                     </ul>
                 </div>
                 <div class="autocomplete__powered-by" />
@@ -117,7 +138,7 @@ $powered-by-height: 36px / 2;
 
     &__items {
         list-style: none;
-        flex-grow: 1;
+        flex: 1 1;
         margin: 0px;
         padding: 0px $space--small;
     }
@@ -139,16 +160,21 @@ import Vue from 'vue';
 import { Component, Prop, Emit, Watch } from 'vue-property-decorator';
 import { v4 as uuidv4 } from 'uuid';
 
-import { IAddTodoParams } from '@/services/sdk.interface';
-import { Debounce } from '@/utils/debounce';
+import PlaceHighlighter from '@/components/place-highlighter.vue';
 
-type Place = google.maps.places.AutocompletePrediction;
+import { IAddTodoParams, Place } from '@/services/sdk.interface';
+import { Debounce } from '@/utils/debounce';
+import { sdk } from '../services/sdk.service';
+
 
 @Component({
     model: {
         prop: 'value',
         event: 'change',
-    }
+    },
+    components: {
+        PlaceHighlighter,
+    },
 })
 export default class ToDoField extends Vue {
     @Prop(String)
@@ -157,8 +183,8 @@ export default class ToDoField extends Vue {
     task: string = '';
     isInField: boolean = false;
 
-    places: Place[] = [];
-    restaurants: Place[] = [];
+    cities: Place[] = [];
+    establishments: Place[] = [];
 
     /**
      * Google bills per auto complete session.
@@ -212,22 +238,17 @@ export default class ToDoField extends Vue {
 
         // TODO: Use this data.
         console.log(establishments, cities);
-        this.places = cities;
-        this.restaurants = establishments;
+        this.cities = cities;
+        this.establishments = establishments;
     }
 
-    autocomplete(): Promise<{ cities: Place[], establishments: Place[] }> {
-        // TODO: Move to SDK
-        return this.$axios.$post(
-            process.env.API_URL + '/autocomplete/place',
-            {
-                key: process.env.PLACES_API_KEY!,
-                input: this.task,
-                // TODO: Generate tokens server side. For now this is simple.
-                tokens: [this.establishmentSession, this.citiesSession],
-                offset: this.getTaskInput().selectionEnd,
-            }
-        );
+    autocomplete() {
+        return sdk.use(this.$axios).autocompletePlace({
+            input: this.task,
+            // TODO: Generate tokens server side. For now this is simple.
+            tokens: [this.establishmentSession, this.citiesSession],
+            offset: this.getTaskInput().selectionEnd || this.task.length,
+        });
     }
 }
 </script>

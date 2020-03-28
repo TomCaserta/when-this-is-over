@@ -13,7 +13,9 @@ import {
     IGetTodosParams,
     IAddTodoResponse,
     ILogoutParams,
-    ILogoutResponse
+    ILogoutResponse,
+    IAutoCompletePlaceParams,
+    IAutoCompletePlaceResponse
 } from './sdk.interface';
 
 export class SdkService {
@@ -111,6 +113,14 @@ export class SdkService {
             todo,
         );
     }
+
+    autocompletePlace(params: IAutoCompletePlaceParams) {
+        return this.request<IAutoCompletePlaceResponse, IAutoCompletePlaceParams>(
+            'autocomplete/place',
+            params,
+        );
+    }
+
 
     isLoggedIn() {
         return !!this.sessionToken;

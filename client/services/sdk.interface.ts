@@ -236,3 +236,31 @@ export interface IAddTodoParams {
 }
 
 export type IAddTodoResponse = ITodoItem;
+
+// ----------------------------------------------------------------------------
+
+export type Place = google.maps.places.AutocompletePrediction;
+
+export interface IAutoCompletePlaceParams {
+    /**
+     * The string to search for
+     */
+    input: string;
+
+    /**
+     * Two tokens relating to city/establishment session
+     * Must be different and must change after user clearing
+     * the input.
+     */
+    tokens: [string, string];
+
+    /**
+     * Where in the input field the cursor is.
+     */
+    offset: number;
+}
+
+export interface IAutoCompletePlaceResponse {
+    cities: Place[];
+    establishments: Place[];
+}

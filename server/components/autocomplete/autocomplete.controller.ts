@@ -45,7 +45,7 @@ export default class AutoCompleteController {
 
         if (!isInputValid || !isTokensValid || !isOffsetValid) {
             return res.status(401).json({
-                error: 'invalid parameters'
+                error: 'autocomplete.invalid-parameters'
             });
         }
 
@@ -57,13 +57,13 @@ export default class AutoCompleteController {
 
             return res.json({
                 res: {
-                    cities,
-                    establishments,
+                    cities: Array.isArray(cities.predictions) ? cities.predictions : [],
+                    establishments: Array.isArray(establishments.predictions) ? establishments.predictions : [],
                 },
             });
         } catch {
             return res.status(500).json({
-                error: 'Could not get autocomplete response',
+                error: 'autocomplete.api-error',
             });
         }
     }
