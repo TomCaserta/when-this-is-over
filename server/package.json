@@ -28,24 +28,29 @@
     "bcrypt": "^4.0.1",
     "config": "^3.3.0",
     "consola": "^2.11.3",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.6",
+    "node-fetch": "^2.6.0",
     "ts-node": "^8.8.1",
     "tsconfig-paths": "^3.9.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/config": "0.0.36",
+    "@types/cors": "^2.8.6",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.3",
     "@types/joi": "^14.3.4",
     "@types/jsonwebtoken": "^8.3.8",
     "@types/mongoose": "^5.7.7",
     "@types/node": "^13.9.3",
+    "@types/node-fetch": "^2.5.5",
     "tslint": "^6.1.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "nodemon": "2.0.2"
   }
 }
