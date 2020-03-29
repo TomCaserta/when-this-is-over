@@ -45,7 +45,7 @@
         left: var(--left);
 
         background: rgba(196, 196, 196, 0.1);
-        backdrop-filter: blur(4px);
+        // backdrop-filter: blur(4px);
     }
 }
 
@@ -78,10 +78,10 @@ export default class Background extends Vue {
     circles: ICircle[] = [];
 
     created() {
-        for (let x = 0; x < 50; x++) {
+        for (let x = 0; x < 20; x++) {
             this.circles.push({
                 id: x,
-                size: this.getRandom(5, 30),
+                size: this.getRandom(5, 50),
                 top: this.getRandom(0, 100),
                 left: this.getRandom(0, 100),
                 delay: this.getRandom(0, 300),

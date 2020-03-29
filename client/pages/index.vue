@@ -11,7 +11,7 @@
             <to-do-field />
         </ui-form-field>
 
-        <ui-button class="intro__button" variant="success">
+        <ui-button @click.native="signUp()" class="intro__button" variant="success">
             BEGIN PLANNING
         </ui-button>
     </div>
@@ -33,7 +33,10 @@ import ToDoField from '@/components/todo-field.vue';
     }
 })
 export default class IndexPage extends Vue {
-
+    signUp() {
+        // @ts-ignore
+        this.$modal.show('sign-up');
+    }
 }
 </script>
 

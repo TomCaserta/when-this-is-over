@@ -1,7 +1,7 @@
 <template>
-    <modal name="login">
+    <modal name="sign-up">
         <h3 class="heading">
-            Login
+            Sign Up
         </h3>
         <p class="intro">
             Enter your email and password to login.
@@ -13,6 +13,7 @@
             <ui-form-field
                 message="Please enter a valid email."
                 :has-error="$v.email.$error"
+                :has-success="!$v.email.$invalid"
             >
                 <ui-input
                     v-model="$v.email.$model"
@@ -27,6 +28,7 @@
             <ui-form-field
                 message="Please enter your password."
                 :has-error="$v.password.$error"
+                :has-success="!$v.email.$invalid"
             >
                 <ui-input
                     v-model="$v.password.$model"
@@ -39,12 +41,30 @@
             </ui-form-field>
 
             <ui-form-field>
+                <label>
+                    <ui-input
+                        v-model="$v.acceptEmail.$model"
+                        type="checkbox"
+                    /> I agree to receive the end-of-quarantine email.
+                </label>
+            </ui-form-field>
+
+            <ui-form-field>
+                <label>
+                    <ui-input
+                        v-model="$v.acceptPrivacy.$model"
+                        type="checkbox"
+                    /> I accept the Terms & Conditions and Privacy Policy
+                </label>
+            </ui-form-field>
+
+            <ui-form-field>
                 <ui-button
                     type="submit"
                     :is-loading="isSubmitting"
                     :disabled="$v.$invalid"
                 >
-                    Login
+                    Sign Up
                 </ui-button>
             </ui-form-field>
         </form>
@@ -78,7 +98,7 @@ import UiButton from '@/components/ui/button.vue';
 import UiInput from '@/components/ui/input.vue';
 
 @Component({
-    name: 'login-modal',
+    name: 'sign-up-modal',
     components: {
         UiFormField,
         UiButton,
@@ -91,10 +111,18 @@ import UiInput from '@/components/ui/input.vue';
         },
         password: {
             required,
-        }
-    }
+        },
+        acceptPrivacy: {
+            required,
+            requiredTrue: (val) => !!val,
+        },
+        acceptEmail: {
+            required,
+            requiredTrue: (val) => !!val,
+        },
+    },
 })
-export default class LoginModal extends Mixins(
+export default class SignUpModal extends Mixins(
     validationMixin
 ) {
     email: string = '';
@@ -111,7 +139,7 @@ export default class LoginModal extends Mixins(
         this.isSubmitting = true;
 
         try {
-            await sdk.use(this.$axios).login(this.email);
+            await sdk.use(this.$axios).signUp(this.email, 'DE');
         } catch (error) {
             if (typeof error === 'string') {
                 this.errorMessage = error;

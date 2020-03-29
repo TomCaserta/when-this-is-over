@@ -6,6 +6,7 @@
         }"
         :value="value"
         @input="input($event.target.value)"
+        @change="input($event.target.value || $event.target.checked)"
         @blur="blur()"
         @focus="focus()"
     />
