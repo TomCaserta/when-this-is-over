@@ -2,15 +2,20 @@
     <modal name="login">
         <h3 class="heading">Login</h3>
         <p class="intro">Enter your email and password to login.</p>
-        <form class="form">
+        <form
+            class="form"
+            @submit.prevent="onSubmit()"
+        >
             <ui-form-field
                 message="Please enter a valid email."
                 :has-error="$v.email.$error"
             >
                 <ui-input
                     v-model="$v.email.$model"
+                    required
                     placeholder="Email"
                     type="email"
+			        @input="$v.email.$reset()"
                     @blur="$v.email.$touch()"
                 />
             </ui-form-field>
@@ -21,14 +26,20 @@
             >
                 <ui-input
                     v-model="$v.password.$model"
+                    required
                     placeholder="Password"
                     type="password"
+			        @input="$v.password.$reset()"
                     @blur="$v.password.$touch()"
                 />
             </ui-form-field>
 
             <ui-form-field>
-                <ui-button>
+                <ui-button
+                    type="submit"
+                    :is-loading="isSubmitting"
+                    :disabled="$v.$invalid"
+                >
                     Login
                 </ui-button>
             </ui-form-field>
@@ -56,6 +67,8 @@ import { Component, Mixins } from 'vue-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { required, email } from 'vuelidate/lib/validators';
 
+import { sdk } from '~/services/sdk.service';
+
 import UiFormField from '@/components/ui/form-field.vue';
 import UiButton from '@/components/ui/button.vue';
 import UiInput from '@/components/ui/input.vue';
@@ -82,6 +95,18 @@ export default class LoginModal extends Mixins(
 ) {
     email: string = '';
     password: string = '';
+
+    isSubmitting: boolean = false;
+
+    async onSubmit() {
+        if (this.$v.$invalid) {
+            return;
+        }
+
+        this.isSubmitting = true;
+        await sdk.use(this.$axios).login(this.email);
+        this.isSubmitting = false;
+    }
 
 }
 </script>

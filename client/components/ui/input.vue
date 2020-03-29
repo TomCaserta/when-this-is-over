@@ -5,7 +5,7 @@
             [`input--${variant}`]: true,
         }"
         :value="value"
-        @change="input($event.target.value)"
+        @input="input($event.target.value)"
         @blur="blur()"
         @focus="focus()"
     />

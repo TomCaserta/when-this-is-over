@@ -82,8 +82,6 @@ export default class IndexPage extends Vue {
     }
 
     &__button {
-        display: block;
-
         grid-column: 3 / 8 span;
         grid-row: 4;
 

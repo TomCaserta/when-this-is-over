@@ -2,7 +2,7 @@
     background: $color;
 
     &:hover {
-        background: darken($color, 20%);
+        background: darken($color, 10%);
         cursor: pointer;
     }
 }
@@ -42,5 +42,15 @@
 
     &--inline {
         padding: $space--small $space;
+    }
+
+    &--disabled {
+        cursor: not-allowed;
+        background: $body-text;
+
+        &:hover {
+            cursor: not-allowed;
+            background: $body-text;
+        }
     }
 }
