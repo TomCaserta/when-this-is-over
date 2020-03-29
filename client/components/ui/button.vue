@@ -15,9 +15,9 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
 @Component({
-    name: 'button',
+    name: 'ui-button',
 })
-export default class Button extends Vue {
+export default class UiButton extends Vue {
     @Prop({
         type: String,
         default: 'primary',

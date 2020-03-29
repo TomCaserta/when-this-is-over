@@ -34,7 +34,7 @@
                     :class="{ 'highlight': isSelected('add') }"
                     @click="chooseAutocompleteItem('add')"
                 >
-                    <img class="autocomplete__plus" src="/imgs/plus.svg" width="12" height="12" />
+                    <img class="autocomplete__plus" src="/imgs/icons/plus.svg" width="12" height="12" />
                     <span>Add just ‘<b>{{ task }}</b>’ to your things to do list.</span>
                 </div>
                 <div class="autocomplete__suggestions">

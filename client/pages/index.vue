@@ -7,11 +7,13 @@
             In quarantine and feel like you have lots of ideas and plans but no way to do them right now? Lets keep some promises together. Begin by adding a place you would like to visit or a thing you need to do and we’ll email you to remind you as soon as the lockdown is over in your city!
         </p>
 
-        <ToDoField class="intro__task" />
+        <ui-form-field class="intro__task">
+            <to-do-field />
+        </ui-form-field>
 
-        <Button class="intro__button" variant="success">
+        <ui-button class="intro__button" variant="success">
             BEGIN PLANNING
-        </Button>
+        </ui-button>
     </div>
 </template>
 
@@ -19,13 +21,15 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
-import Button from '@/components/button.vue';
+import UiButton from '@/components/ui/button.vue';
+import UiFormField from '@/components/ui/form-field.vue';
 import ToDoField from '@/components/todo-field.vue';
 
 @Component({
     components: {
-        Button,
+        UiButton,
         ToDoField,
+        UiFormField,
     }
 })
 export default class IndexPage extends Vue {

@@ -2,9 +2,9 @@
     <div>
         <div class="nav">
             <ToDoField can-overflow class="nav__task" />
-            <Button class="nav__submit" variant="success" inline>
+            <UiButton class="nav__submit" variant="success" inline>
                 + ADD ITEM
-            </Button>
+            </UiButton>
 
             <Country class="nav__country" code="BR" />
             <Countdown class="nav__countdown" email="tom@caserta.co.uk" :end-date="1586563200000" :total-days="30" />
@@ -89,7 +89,7 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
-import Button from '@/components/button.vue';
+import UiButton from '@/components/ui/button.vue';
 import ItemGroup from '@/components/item-group.vue';
 import Country from '@/components/country.vue';
 import Countdown from '@/components/countdown.vue';
@@ -99,7 +99,7 @@ import { ITodoItemGroup, TodoGroupType } from '@/services/sdk.interface';
 @Component({
     layout: 'dashboard',
     components: {
-        Button,
+        UiButton,
         ItemGroup,
         Country,
         Countdown,
