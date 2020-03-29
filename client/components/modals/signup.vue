@@ -4,7 +4,7 @@
             Sign Up
         </h3>
         <p class="intro">
-            Enter your email and password to login.
+            Enter your email and password to sign up.
         </p>
         <form
             class="form"
@@ -28,7 +28,7 @@
             <ui-form-field
                 message="Please enter your password."
                 :has-error="$v.password.$error"
-                :has-success="!$v.email.$invalid"
+                :has-success="!$v.password.$invalid"
             >
                 <ui-input
                     v-model="$v.password.$model"
@@ -40,7 +40,9 @@
                 />
             </ui-form-field>
 
-            <ui-form-field>
+            <ui-form-field
+                :has-error="$v.acceptEmail.$error"
+            >
                 <label>
                     <ui-input
                         v-model="$v.acceptEmail.$model"
@@ -49,7 +51,9 @@
                 </label>
             </ui-form-field>
 
-            <ui-form-field>
+            <ui-form-field
+                :has-error="$v.acceptPrivacy.$error"
+            >
                 <label>
                     <ui-input
                         v-model="$v.acceptPrivacy.$model"
