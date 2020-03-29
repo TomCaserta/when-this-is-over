@@ -1,3 +1,24 @@
 .v--modal-overlay {
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.v--modal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.v--modal-box {
+    width: 100vw;
+    max-width: 350 + $space--x-large;
+    padding: $space--large;
+
+    // For some reason this plugin does this shit in JS. It's not needed.
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    height: auto !important;
+    transform: translateX(-50%) translateY(-50%);
 }

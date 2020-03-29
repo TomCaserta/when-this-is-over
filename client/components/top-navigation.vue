@@ -2,7 +2,7 @@
     <nav class="nav">
         <ul class="nav__links">
             <li class="nav__link">
-                <a href="/login" @click="login()">Login</a>
+                <a href="/login" @click.prevent="login()">Login</a>
             </li>
         </ul>
     </nav>
@@ -53,5 +53,9 @@ import { Component } from 'vue-property-decorator';
     name: 'top-navigation',
 })
 export default class TopNavigation extends Vue {
+    login() {
+        // @ts-ignore
+        this.$modal.show('login');
+    }
 }
 </script>

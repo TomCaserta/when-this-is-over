@@ -1,5 +1,7 @@
 input {
     @include paragraph();
+
+    width: 100%;
     line-height: 18px;
     background: #FFFFFF;
     font-size: 12px;

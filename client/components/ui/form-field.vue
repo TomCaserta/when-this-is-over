@@ -5,6 +5,7 @@
             'form-field--error': hasError,
             'form-field--success': hasSuccess,
             'form-field--alert': hasWarning,
+            'form-field--no-margin': noMargin,
             'has-message': !!message,
         }"
     >
@@ -26,10 +27,15 @@
 
 <style lang="scss" scoped>
 .form-field {
+    margin-top: $space;
     width: 100%;
 
     --input-border-color: #{$light_gray};
     --input-border-radius: #{$border-radius};
+
+    &--no-margin {
+        margin-top: 0px;
+    }
 
     &--error {
         --input-border-color: #{$error};
@@ -84,6 +90,9 @@ import { Component, Prop } from 'vue-property-decorator';
 export default class UiFormField extends Vue {
     @Prop(String)
     message!: string;
+
+    @Prop(Boolean)
+    noMargin!: boolean;
 
     @Prop(Boolean)
     inline!: boolean;

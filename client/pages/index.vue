@@ -67,7 +67,6 @@ export default class IndexPage extends Vue {
     }
 
     &__task {
-        margin-top: $space--x-large;
         display: block;
 
         grid-column: span 12;
