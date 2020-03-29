@@ -212,6 +212,7 @@ export interface ITodoValue {
 const autocompleteCache = new Map<string, Promise<IAutoCompletePlaceResponse>>();
 
 @Component({
+    name: 'to-do-field',
     model: {
         prop: 'value',
         event: 'change',
